@@ -1,0 +1,11 @@
+# object files
+*.o
+
+# executable files
+cub3D
+
+# Visual Studio Code
+.vscode
+
+# Ignore system files
+.DS_Store
