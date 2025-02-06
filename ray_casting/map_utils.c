@@ -1,5 +1,18 @@
 #include "../cub3d.h"
 
+void    ft_free(char **map)
+{
+    int i = 0;
+
+    while(map[i])
+    {
+        free(map[i]);
+        i++;
+    }
+    free(map);
+    map = NULL;
+}
+
 void    get_map_size(char *file, int *width, int *height)
 {
     char buffer;
