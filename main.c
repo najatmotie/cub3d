@@ -6,7 +6,7 @@
 int worldMap[MAP_HEIGHT][MAP_WIDTH] = {
   {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-  {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+  {1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
   {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -55,9 +55,24 @@ void    draw_map(void *mlx_ptr, void *win_ptr)
 
 }
 
-void    draw_player(void *mlx, void *win, t_ply *player)
+void    draw_player(void *mlx_ptr, void *win_ptr, t_ply *player)
 {
+    int i = -4;
+    int j = -4;
+    int screen_x = player->p_x * TILE_SIZE;
+    int screen_y = player->p_y * TILE_SIZE;
 
+    while(j < 4)
+    {
+        i = -4;
+        while(i < 4)
+        {
+            if(i * i + j * j <= 16)
+                mlx_pixel_put(mlx_ptr, win_ptr, screen_x + i, screen_y + j, 0xFF0000);
+            i++;
+        }
+        j++;
+    }
 }
 
 int main(int ac, char **av)
@@ -81,6 +96,7 @@ int main(int ac, char **av)
         mlx_hook(cub.mlx.win_ptr, 17, 0, close_window, &cub);
         // mlx_pixel_put(cub.mlx.mlx_ptr, cub.mlx.win_ptr, 400, 300, 0xFF0000);
         draw_map(cub.mlx.mlx_ptr, cub.mlx.win_ptr);
+        draw_player(cub.mlx.mlx_ptr, cub.mlx.win_ptr, &player);
         mlx_loop(cub.mlx.mlx_ptr);
         
     }
@@ -90,9 +106,4 @@ int main(int ac, char **av)
         return(1);
     }
     return(0);
-}
-
-
-
-
-
+} 
