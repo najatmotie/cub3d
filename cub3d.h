@@ -7,12 +7,16 @@
 #include <stdbool.h>
 #include <math.h>
 
-#define TILE_SIZE 64
+#define A_KEY 0 
+#define S_KEY 1 
+#define D_KEY 2 
+#define W_KEY 13
 #define ESC_KEY 53
-#define W_KEY   13
-#define A_KEY   0 
-#define S_KEY   1 
-#define D_KEY   2 
+#define FOV 60
+#define TILE_SIZE 50
+
+#define MAP_WIDTH 10
+#define MAP_HEIGHT 10
 
 typedef struct s_mlx
 {
@@ -22,9 +26,8 @@ typedef struct s_mlx
 
 typedef struct s_ply
 {
-    double p_x;
-    double p_y;
-    // char p_dir;
+    double pos_x;
+    double pos_y;
     int dir_x;
     int dir_y;
 } t_ply;
@@ -42,3 +45,5 @@ void    get_map_size(char *file, int *width, int *height);
 char    **fill_map(char *file, int width, int height, t_cub *cub);
 int close_window(t_cub *cub);
 int key_hook(int keycode, t_cub *cub);
+void    draw_map(void *mlx_ptr, void *win_ptr);
+void    draw_player(void *mlx_ptr, void *win_ptr, t_ply player);

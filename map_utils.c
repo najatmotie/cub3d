@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cub3d.h"
 
 void    ft_free(char **map)
 {
@@ -77,11 +77,25 @@ char    **fill_map(char *file, int width, int height, t_cub *cub)
                 map[i][j] = '\0';
                 break;
             }
-            if(buffer == 'N' || buffer == 'E' || buffer == 'S' || buffer == 'W')
+            if(buffer == 'N')
             {
-                cub->player.p_x = j;
-                cub->player.p_y = i;
-                cub->player.p_dir = buffer;
+                cub->ply.dir_x = 0;
+                cub->ply.dir_y = -1;
+            }
+            if(buffer == 'E')
+            {
+                cub->ply.dir_x = 1;
+                cub->ply.dir_y = 0;
+            }
+            if(buffer == 'S')
+            {
+                cub->ply.dir_x = 0;
+                cub->ply.dir_y = 1;
+            }
+            if(buffer == 'W')
+            {
+                cub->ply.dir_x = -1;
+                cub->ply.dir_y = 0;
             }
             map[i][j] = buffer;
             j++;

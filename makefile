@@ -3,7 +3,7 @@ NAME = cub3D
 # CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CFLAGS = -Wall -Wextra -Werror 
 
-SRC = main.c ray_casting/libft_utils.c ray_casting/map_utils.c ray_casting/events.c
+SRC = main.c libft_utils.c map_utils.c events.c drawing.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -20,3 +20,4 @@ fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
+
