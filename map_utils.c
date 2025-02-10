@@ -79,23 +79,39 @@ char    **fill_map(char *file, int width, int height, t_cub *cub)
             }
             if(buffer == 'N')
             {
+                cub->ply.pos_x = j;
+                cub->ply.pos_y = i;
                 cub->ply.dir_x = 0;
                 cub->ply.dir_y = -1;
+                cub->ply.plane_x = PLANE_LENGTH;
+                cub->ply.plane_y = 0;
             }
             if(buffer == 'E')
             {
+                cub->ply.pos_x = j;
+                cub->ply.pos_y = i;
                 cub->ply.dir_x = 1;
                 cub->ply.dir_y = 0;
+                cub->ply.plane_x = 0;
+                cub->ply.plane_y = -PLANE_LENGTH;
             }
             if(buffer == 'S')
             {
+                cub->ply.pos_x = j;
+                cub->ply.pos_y = i;
                 cub->ply.dir_x = 0;
                 cub->ply.dir_y = 1;
+                cub->ply.plane_x = -PLANE_LENGTH;
+                cub->ply.plane_y = 0;
             }
             if(buffer == 'W')
             {
+                cub->ply.pos_x = j;
+                cub->ply.pos_y = i;
                 cub->ply.dir_x = -1;
                 cub->ply.dir_y = 0;
+                cub->ply.plane_x = 0;
+                cub->ply.plane_y = PLANE_LENGTH;
             }
             map[i][j] = buffer;
             j++;

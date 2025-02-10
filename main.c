@@ -9,7 +9,7 @@ int main(int ac, char **av)
     (void)av;
     if(ac == 2)
     {
-        t_ply player = {1.5, 1.5, -1, 0};
+        t_ply player = {1.5, 1.5, -1, 0, 0, PLANE_LENGTH};
         cub.ply = player;
         cub.mlx.mlx_ptr = mlx_init();
         // cub.mlx.mlx = mlx_init(cub.mlx.mlx, width * TILE_SIZE, height * TILE_SIZE, "cub3D", 0);
