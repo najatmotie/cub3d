@@ -1,15 +1,17 @@
 NAME = cub3D
 
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.c libft_utils.c map_utils.c events.c drawing.c
+DEPENDECES = -framework Cocoa -framework OpenGL -framework IOKit
+
+GLFW = /goinfre/nmotie-/homebrew/opt/glfw/lib
+
+SRC = main.c globals.c events.c libft_utils.c drawing.c raycasting.c
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME) : $(OBJ) cub3d.h
-	cc $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
+	cc $(OBJ) MLX42/build/libmlx42.a $(DEPENDECES) -Iinclude -lglfw  -fsanitize=address -g -L$(GLFW) -o $(NAME)
 
 all : $(NAME)
 
@@ -20,4 +22,3 @@ fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
-

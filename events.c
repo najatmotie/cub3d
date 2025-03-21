@@ -1,70 +1,96 @@
 #include "cub3d.h"
 
-int close_window(t_cub *cub)
+int inside_bounds(float x, float y)
 {
-    printf("Window Closed!\n");
-    mlx_destroy_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
-    exit(0);
+    if(x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
+        return 1;
+    return 0;
 }
 
-// x1 = x * cos(θ) - y * sin(θ)
-// y1 = x * sin(θ) + y * cos(θ)
-
-int key_hook(int keycode, t_cub *cub)
+int normalize_angle(int angle)
 {
-    double move_speed = 0.1;
-    double rotation_speed = 0.1;
+    if(angle > 360)
+        angle -= 360;
+    if(angle < 0)
+        angle += 360;
+    return(angle);
+}
 
-    // printf("keycode: %d\n", keycode);
-    if(keycode == ESC_KEY)
-    {
-        printf("ESC pressed!\n");
-        mlx_destroy_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
-        exit(0);
-    }
-    if(keycode == W_KEY)
-    {
-        cub->ply.pos_x += cub->ply.dir_x * move_speed;
-        cub->ply.pos_y += cub->ply.dir_y * move_speed;
-    }
-    if(keycode == S_KEY)
-    {
-        cub->ply.pos_x -= cub->ply.dir_x * move_speed;
-        cub->ply.pos_y -= cub->ply.dir_y * move_speed;
-    }
-    if(keycode == D_KEY)
-    {
-        cub->ply.pos_x += cub->ply.dir_y * move_speed;
-        cub->ply.pos_y -= cub->ply.dir_x * move_speed;
-    }
-    if(keycode == A_KEY)
-    {
-        cub->ply.pos_x -= cub->ply.dir_y * move_speed;
-        cub->ply.pos_y += cub->ply.dir_x * move_speed;
-    }
-    if (keycode == 123) 
-    {
-        double old_dir = cub->ply.dir_x;
-        cub->ply.dir_x = cub->ply.dir_x * cos(-rotation_speed) - cub->ply.dir_y * sin(-rotation_speed);
-        cub->ply.dir_y = old_dir * sin(-rotation_speed) + cub->ply.dir_y * cos(-rotation_speed);
+void key_hook(void *param)
+{
 
-        double old_plane_x = cub->ply.plane_x;
-        cub->ply.plane_x = cub->ply.plane_x * cos(-rotation_speed) - cub->ply.plane_y * sin(-rotation_speed);
-        cub->ply.plane_y = old_plane_x * sin(-rotation_speed) + cub->ply.plane_y * cos(-rotation_speed);
-    }
-    if (keycode == 124) 
-    {
-        double old_dir = cub->ply.dir_x;
-        cub->ply.dir_x = cub->ply.dir_x * cos(rotation_speed) - cub->ply.dir_y * sin(rotation_speed);
-        cub->ply.dir_y = old_dir * sin(rotation_speed) + cub->ply.dir_y * cos(rotation_speed);
+    t_cub *cub = (t_cub*)param;
+    double move_speed = 0.5;
+    double rotation_speed = 1;
+    float radian = cub->ply.angle * M_PI / 180.0;
+    float new_x = 0;
+    float new_y = 0;
 
-        double old_plane_x = cub->ply.plane_x;
-        cub->ply.plane_x = cub->ply.plane_x * cos(rotation_speed) - cub->ply.plane_y * sin(rotation_speed);
-        cub->ply.plane_y = old_plane_x * sin(rotation_speed) + cub->ply.plane_y * cos(rotation_speed);
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_ESCAPE))
+    {
+        mlx_delete_image(cub->mlx.mlx_ptr, cub->mlx.img_ptr);
+		mlx_close_window(cub->mlx.mlx_ptr);
     }
-    // printf("pos_x: %f pos_y: %f\n", cub->ply.pos_x, cub->ply.pos_y);
-    mlx_clear_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
-    draw_map(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
-    draw_player(cub->mlx.mlx_ptr, cub->mlx.win_ptr, cub->ply);
-    return(0);
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_W))
+    {
+        new_x = (cub->ply.pos_x + cos(radian) * move_speed) / 50;
+        new_y = (cub->ply.pos_y - sin(radian) * move_speed) / 50;
+
+        if(inside_bounds(new_x, new_y) && !Map[(int)new_y][(int)new_x])
+        {
+            cub->ply.pos_x += cos(radian) * move_speed;
+            cub->ply.pos_y -= sin(radian) * move_speed;
+        }
+    }
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_S))
+	{
+        new_x = (cub->ply.pos_x - cos(radian) * move_speed) / 50;
+        new_y = (cub->ply.pos_y + sin(radian) * move_speed) / 50;
+        // printf("%d %d\n", inside_bounds(new_x, new_y), Map[(int)new_y][(int)new_x]);
+        // printf("new_x %f new_y %f ", new_x, new_y);
+        if(inside_bounds(new_x, new_y) && !Map[(int)new_y][(int)new_x])
+        {
+            cub->ply.pos_x -= cos(radian) * move_speed;
+            cub->ply.pos_y += sin(radian) * move_speed;
+        }
+    }	
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_A))
+	{
+        new_x = (cub->ply.pos_x + cos(radian + M_PI / 2) * move_speed) / 50;
+        new_y = (cub->ply.pos_y - sin(radian + M_PI / 2) * move_speed) / 50;
+        if(inside_bounds(new_x, new_y) && !Map[(int)new_y][(int)new_x])
+        {
+            // printf("A %f\n", radian + M_PI / 2);
+            cub->ply.pos_x += cos(radian + M_PI / 2) * move_speed;
+            cub->ply.pos_y -= sin(radian + M_PI / 2) * move_speed;
+        }
+    }	
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_D))
+	{
+        new_x = (cub->ply.pos_x - cos(radian + M_PI / 2) * move_speed) / 50;
+        new_y = (cub->ply.pos_y + sin(radian + M_PI / 2) * move_speed) / 50;
+        if(inside_bounds(new_x, new_y) && !Map[(int)new_y][(int)new_x])
+        {
+            cub->ply.pos_x -= cos(radian + M_PI / 2) * move_speed;
+            cub->ply.pos_y += sin(radian + M_PI / 2) * move_speed;
+        }
+    }
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_LEFT))
+        cub->ply.angle += rotation_speed;
+	if (mlx_is_key_down(cub->mlx.mlx_ptr, MLX_KEY_RIGHT))
+        cub->ply.angle -= rotation_speed;
+    cub->ply.angle = normalize_angle(cub->ply.angle);
+    // printf("angle %f\n", cub->ply.angle);
+
+    mlx_delete_image(cub->mlx.mlx_ptr, cub->mlx.img_ptr);
+    cub->mlx.img_ptr = mlx_new_image(cub->mlx.mlx_ptr, MAP_WIDTH * TILE, MAP_HEIGHT * TILE);
+    if(!cub->mlx.img_ptr)
+    {
+        printf("Error: Image pointer is NULL\n");
+        exit(1);
+    }
+    mlx_image_to_window(cub->mlx.mlx_ptr, cub->mlx.img_ptr, 0, 0);
+    draw_minimap(cub);
+    draw_player(cub);
+    cast_all_rays(cub);
 }
