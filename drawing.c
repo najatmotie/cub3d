@@ -66,18 +66,41 @@ void     draw_player(t_cub *cub)
     }
 }
 
-void draw_wall(t_cub *cub, int index)
+void    draw_ceiling(t_cub cub, int top, int x)
+{
+    int y = 0;
+
+    while(y < top)
+    {
+        mlx_put_pixel(cub.mlx.img_ptr, x, y, 0x89CFF3FF);
+        y++;
+    }
+
+}
+
+void    draw_floor(t_cub cub, int bottom, int x)
+{
+    int y = bottom;
+
+    while(y < SCREEN_HEIGHT)
+    {
+        mlx_put_pixel(cub.mlx.img_ptr, x, y, 0xB99470FF);
+        y++;
+    }
+}
+
+void draw_wall(t_cub *cub, int x)
 {
     int wall_top;
     int wall_bottom;
     float wall_height;
     float distance_to_projection_plane;
 
-    // printf("%f\n", cub->ray[index].distance);
-    cub->ray[index].distance *= cos(degree_to_radian(normalize_angle(cub->ray[index].ray_angle - cub->ply.angle))); // fix the fisheye
+    // printf("%f\n", cub->ray[x].distance);
+    cub->ray[x].distance *= cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle - cub->ply.angle))); // fix the fisheye
     distance_to_projection_plane = (SCREEN_WIDTH / 2) / tan(degree_to_radian(FOV) / 2);
-    wall_height = (TILE*MINIMAP / cub->ray[index].distance) * distance_to_projection_plane;
-    // printf("distance %f index %d angle %f height %f\n", cub->ray[index].distance, index, cub->ray[index].ray_angle, wall_height);
+    wall_height = (TILE*MINIMAP / cub->ray[x].distance) * distance_to_projection_plane;
+    // printf("distance %f x %d angle %f height %f\n", cub->ray[x].distance, x, cub->ray[x].ray_angle, wall_height);
     wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
     wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
     if (wall_top < 0) wall_top = 0;
@@ -85,7 +108,10 @@ void draw_wall(t_cub *cub, int index)
     int y = wall_top;
     while (y < wall_bottom)
     {
-        mlx_put_pixel(cub->mlx.img_ptr, index, y, 0xFFFFFF);
+        mlx_put_pixel(cub->mlx.img_ptr, x, y, 0xFFFFFF);
         y++;
     }
+    draw_ceiling(*cub, wall_top, x);
+    draw_floor(*cub, wall_bottom, x);
 }
+
