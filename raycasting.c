@@ -140,7 +140,7 @@ void    cast_all_rays(t_cub *cub)
         cub->ray->ray_angle = ray_angle;
         cub->ray[i] = cast_ray(cub);
         // DDA(cub, cub->ply.pos_x, cub->ply.pos_y, cub->ray[i].end_x, cub->ray[i].end_y);
-        // draw_wall(cub, i);
+        draw_wall(cub, i);
         i++;
     }
 }
