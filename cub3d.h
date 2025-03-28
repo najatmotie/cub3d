@@ -13,13 +13,14 @@
 // #define π 3.14
 // #define PLANE_LENGTH (tan(FOV * M_PI / 360.0)) // Convert (FOV / 2) to radians (radians = degrees * π / 180 (π = 3.14))
 
-#define MAP_WIDTH 10
-#define MAP_HEIGHT 10
+#define MAP_WIDTH 16
+#define MAP_HEIGHT 12
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define MINIMAP_SCALE 5
+#define MINIMAP 0.4
 #define FOV 60
-#define TILE 50
+#define TILE 40
 // #define TILE 10
 
 extern int Map[MAP_HEIGHT][MAP_WIDTH];
@@ -49,6 +50,7 @@ typedef struct s_ray
     float end_x;
     float end_y;
     float distance;
+    float ray_angle;
 } t_ray;
 
 typedef struct s_ply
@@ -77,6 +79,10 @@ void    draw_player(t_cub *cub);
 // void DDA(t_cub *cub, float X0, float Y0, float X1, float Y1);
 void    cast_all_rays(t_cub *cub);
 int inside_bounds(float x, float y);
-int normalize_angle(int angle);
+float normalize_angle(float angle);
+float degree_to_radian(float angle);
+void draw_wall(t_cub *cub, int index);
+void DDA(t_cub *cub, float X0, float Y0, float X1, float Y1) ;
+float calculate_distance(float x1, float y1, float x2, float y2);
 
 #endif

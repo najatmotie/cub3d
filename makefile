@@ -6,7 +6,7 @@ DEPENDECES = -framework Cocoa -framework OpenGL -framework IOKit
 
 GLFW = /goinfre/nmotie-/homebrew/opt/glfw/lib
 
-SRC = main.c globals.c events.c libft_utils.c drawing.c raycasting.c
+SRC = main.c globals.c moves.c libft_utils.c map_utils.c utils.c drawing.c raycasting.c
 
 OBJ = $(SRC:.c=.o)
 
