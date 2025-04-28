@@ -1,4 +1,28 @@
-#include "cub3d.h"
+#include "../cub3d.h"
+void    ft_free(char **map)
+{
+    int i = 0;
+
+    while(map[i])
+    {
+        free(map[i]);
+        i++;
+    }
+    free(map);
+    map = NULL;
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
 int abs(int n) { return ((n > 0) ? n : (n * (-1))); } 
 
@@ -16,9 +40,9 @@ float degree_to_radian(float angle)
     return(angle * M_PI / 180.0);
 }
 
-int inside_bounds(float x, float y)
+int inside_bounds(t_cub *cub, float x, float y)
 {
-    if(x >= 0 && x < MAP_WIDTH && y >= 0 && y < MAP_HEIGHT)
+    if(x >= 0 && x < cub->map.width && y >= 0 && y < cub->map.height)
         return 1;
     return 0;
 }
@@ -50,7 +74,7 @@ void DDA(t_cub *cub, float X0, float Y0, float X1, float Y1)
     float Y = Y0; 
     for (int i = 0; i <= steps; i++) { 
         // putpixel(round(X), round(Y), 0xFF0000); // put pixel at (X,Y)
-        if(!inside_bounds(X1/(TILE*MINIMAP), Y1/(TILE*MINIMAP)))
+        if(!inside_bounds(cub, X1/(TILE*MINIMAP), Y1/(TILE*MINIMAP)))
             return ;
         mlx_put_pixel(cub->mlx.img_ptr, round(X),  round(Y), 0xFFFFFF);
         X += Xinc; // increment in x at each step 

@@ -1,24 +1,11 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void    ft_free(char **map)
-{
-    int i = 0;
-
-    while(map[i])
-    {
-        free(map[i]);
-        i++;
-    }
-    free(map);
-    map = NULL;
-}
-
-void    get_map_size(char *file, int *width, int *height)
+void    get_map_size(char *file, t_cub *cub)
 {
     char buffer;
     int fix_width;
 
-    *height = 1;
+    cub->map.height = 1;
     fix_width = 0;
     int fd = open(file, O_RDONLY);
 
@@ -31,25 +18,27 @@ void    get_map_size(char *file, int *width, int *height)
     {
         if(buffer == '\n')
         {
-            (*height)++;
-            fix_width = *width;
-            *width = 0;
+            (cub->map.height)++;
+            if(fix_width < cub->map.width)
+                fix_width = cub->map.width;
+            cub->map.width = 0;
         }
         else
-            (*width)++;
+            (cub->map.width)++;
     }
     close(fd);
-    *width = fix_width;
+    cub->map.width = fix_width;
 }
 
-char    **fill_map(char *file, int width, int height, t_cub *cub)
+char    **fill_map(char *file, t_cub *cub)
 {
     int i;
     int j;
     int fd;
-    char buffer;
     bool eof;
+    char buffer;
 
+    get_map_size(file, cub);
     fd = open(file, O_RDONLY);
     if(fd < 0)
     {
@@ -58,11 +47,12 @@ char    **fill_map(char *file, int width, int height, t_cub *cub)
     }
     i = 0;
     eof = false;
-    char **map = malloc((height + 1) * sizeof(char));
+    // printf("-->%d\n", cub->map.height);
+    char **map = malloc((cub->map.height + 1) * sizeof(char *));
     while(1)
     {
         j = 0;
-        map[i] = malloc(width + 1);
+        map[i] = malloc(cub->map.width + 1);
         if(eof)
             break;
         while (1)
@@ -70,10 +60,27 @@ char    **fill_map(char *file, int width, int height, t_cub *cub)
             if(!read(fd, &buffer, 1))
             {
                 eof = true;
+                if(j < cub->map.width)
+                {
+                    while(j < cub->map.width)
+                    {
+                        map[i][j] = ' ';
+                        j++;
+                    } 
+                }
+                map[i][j] = '\0';
                 break;
             }
             if(buffer == '\n')
             {
+                if(j < cub->map.width)
+                {
+                    while(j < cub->map.width)
+                    {
+                        map[i][j] = ' ';
+                        j++;
+                    } 
+                }
                 map[i][j] = '\0';
                 break;
             }
@@ -104,9 +111,8 @@ char    **fill_map(char *file, int width, int height, t_cub *cub)
             map[i][j] = buffer;
             j++;
         }
+        // printf("%s\n", map[i]);
         i++;
-        // if(eof)
-        //     break;
     }
     close(fd);
     map[i] = NULL;

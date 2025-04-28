@@ -6,12 +6,15 @@ DEPENDECES = -framework Cocoa -framework OpenGL -framework IOKit
 
 GLFW = /goinfre/nmotie-/homebrew/opt/glfw/lib
 
-SRC = main.c globals.c moves.c libft_utils.c map_utils.c utils.c drawing.c raycasting.c
+MLXLIB = MLX42/build/libmlx42.a
+
+SRC = main.c parsing_map/checks.c parsing_map/file_extension.c parsing_map/fill_map.c \
+	raycasting/moves.c raycasting/utils.c raycasting/drawing.c raycasting/raycasting.c
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME) : $(OBJ) cub3d.h
-	cc $(OBJ) MLX42/build/libmlx42.a $(DEPENDECES) -Iinclude -lglfw  -fsanitize=address -g -L$(GLFW) -o $(NAME)
+	cc $(OBJ) $(DEPENDECES) -Iinclude -lglfw  -L$(GLFW) $(MLXLIB) -fsanitize=address -g -o $(NAME)
 
 all : $(NAME)
 
