@@ -141,7 +141,7 @@ void    cast_all_rays(t_cub *cub)
     float ray_angle_increment = fov / num_rays;
     while(i < num_rays)
     {
-        ray_angle = cub->ply.angle - (fov / 2) + (i * ray_angle_increment);
+        ray_angle = cub->ply.ply_angle - (fov / 2) + (i * ray_angle_increment);
         ray_angle = normalize_angle(ray_angle);
         cub->ray[i].ray_angle = ray_angle;
         cub->ray[i] = cast_ray(cub, &color);

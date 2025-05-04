@@ -108,7 +108,7 @@ void draw_wall(t_cub *cub, int x, int check)
         color = 0xF5F5F5FF;
     else 
         color = 0xB5B5B5FF;
-    cub->ray[x].distance *= cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle - cub->ply.angle))); // fix the fisheye
+    cub->ray[x].distance *= cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle - cub->ply.ply_angle))); // fix the fisheye
     distance_to_projection_plane = (SCREEN_WIDTH / 2) / tan(degree_to_radian(FOV) / 2);
     // wall_height = (TILE*MINIMAP / cub->ray[x].distance) * distance_to_projection_plane;
     wall_height = (TILE / cub->ray[x].distance) * distance_to_projection_plane;

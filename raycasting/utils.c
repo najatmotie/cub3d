@@ -12,18 +12,6 @@ void    ft_free(char **map)
     map = NULL;
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
 int abs(int n) { return ((n > 0) ? n : (n * (-1))); } 
 
 float calculate_distance(float x1, float y1, float x2, float y2)
