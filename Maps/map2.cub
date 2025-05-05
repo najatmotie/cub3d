@@ -1,7 +1,7 @@
-NO parsing/texters/xpm/north.xpm
-SO parsing/texters/xpm/south.xpm
-WE parsing/texters/xpm/west.xpm
-EA parsing/texters/xpm/east.xpm
+NO images/north.png
+SO images/south.png
+WE images/west.png
+EA images/east.png
 
 F 220,100,0
 C 225,30,0 

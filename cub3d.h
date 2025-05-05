@@ -50,17 +50,21 @@ typedef struct s_ply
     float ply_angle;
 } t_ply;
 
-typedef struct s_textures
+typedef struct s_texture
 {
-    char *north_path;
-    char *north_image;
-    char *south_path;
-    char *south_image;
-    char *west_path;
-    char *west_image;
-    char *east_path;
-    char *east_image;
-} t_textures;
+    mlx_texture_t* north_texture;
+    mlx_texture_t* south_texture;
+    mlx_texture_t* west_texture;
+    mlx_texture_t* east_texture;
+} t_texture;
+
+typedef struct s_image
+{
+    mlx_image_t* north_image;
+    mlx_image_t* south_image;
+    mlx_image_t* west_image;
+    mlx_image_t* east_image;
+} t_image;
 
 typedef struct s_colors
 {
@@ -88,11 +92,13 @@ typedef struct s_cub
     t_mlx mlx;
     t_ply ply;
     t_ray *ray;
-    t_textures texters;
+    t_texture textures;
+    t_image images;
     t_colors colors;
     t_elements elements;
 } t_cub;
 
+char *remove_newline(char *path);
 void	check_file(char *file);
 int open_file(char *file);
 size_t	ft_strlen(const char *s);

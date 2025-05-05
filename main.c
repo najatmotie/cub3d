@@ -2,10 +2,6 @@
 
 void    init_data(t_cub *cub)
 {
-    cub->texters.east_path = NULL;
-    cub->texters.north_path = NULL;
-    cub->texters.south_path = NULL;
-    cub->texters.west_path = NULL;
     cub->elements.C = 0;
     cub->elements.E = 0;
     cub->elements.EA = 0;
@@ -18,6 +14,28 @@ void    init_data(t_cub *cub)
     cub->elements.WE = 0;
 }
 
+void    convert_png_to_image(t_cub *cub)
+{
+    cub->images.north_image = mlx_texture_to_image(cub->mlx.mlx_ptr, cub->textures.north_texture);
+    mlx_delete_texture(cub->textures.north_texture);
+    cub->images.south_image = mlx_texture_to_image(cub->mlx.mlx_ptr, cub->textures.south_texture);
+    mlx_delete_texture(cub->textures.south_texture);
+    cub->images.west_image = mlx_texture_to_image(cub->mlx.mlx_ptr, cub->textures.west_texture);
+    mlx_delete_texture(cub->textures.west_texture);
+    cub->images.east_image = mlx_texture_to_image(cub->mlx.mlx_ptr, cub->textures.east_texture);
+    mlx_delete_texture(cub->textures.east_texture);
+    if (!cub->images.north_image || !cub->images.south_image || !cub->images.west_image || !cub->images.east_image)
+    {
+        ft_free(cub->map.map);
+        printf("%s\n", mlx_strerror(mlx_errno));
+        mlx_delete_texture(cub->textures.north_texture);
+        mlx_delete_texture(cub->textures.south_texture);
+        mlx_delete_texture(cub->textures.west_texture);
+        mlx_delete_texture(cub->textures.east_texture);
+        exit(1);
+    }
+}
+
 int main(int ac, char **av)
 {
     if(ac == 2)
@@ -26,8 +44,9 @@ int main(int ac, char **av)
         check_file(av[1]);
         init_data(&cub);
         parsing_file(&cub, av[1]);
+        cub.mlx.mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", 0);
+        convert_png_to_image(&cub);
         // cub.ray = malloc(SCREEN_WIDTH * sizeof(t_ray));
-        // cub.mlx.mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", 0);
         // mlx_loop_hook(cub.mlx.mlx_ptr, key_hook, &cub);
         // mlx_loop(cub.mlx.mlx_ptr);     
     }

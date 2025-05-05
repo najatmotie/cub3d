@@ -37,16 +37,14 @@ void    get_map_size(char *file, t_cub *cub)
         cub->map.height++;
         line = get_next_line(fd);
         if(!line)
-        {
-            free(line);
             break ;
-        }
         cub->map.width = ft_strlen(line) - 1;
         if(fix_width < cub->map.width)
             fix_width = cub->map.width;
         cub->map.width = 0;
         free(line);
     }
+    free(line);
     close(fd);
     cub->map.width = fix_width;
 }

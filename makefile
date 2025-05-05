@@ -10,8 +10,9 @@ MLXLIB = MLX42/build/libmlx42.a
 
 SRC = main.c gnl/get_next_line.c libft/ft_atoi.c libft/ft_split.c libft/ft_strchr.c \
 	libft/ft_strcmp.c libft/ft_strdup.c libft/ft_strjoin.c libft/ft_strlen.c libft/ft_strrchr.c \
-	parsing/map/check_errors.c parsing/file_extension.c parsing/map/parse_map.c parsing/parsing_file.c \
-	parsing/textures/parse_textures.c parsing/map/player_data.c parsing/map/utils.c parsing/textures/utils.c \
+	parsing/file_extension.c parsing/parsing_file.c \
+	parsing/map/parse_map.c parsing/map/map_utils.c parsing/map/player_data.c parsing/map/check_errors.c \
+	parsing/texture/get_images.c parsing/texture/get_colors.c parsing/texture/parse_textures.c parsing/texture/texture_utils.c \
 	raycasting/moves.c raycasting/utils.c raycasting/drawing.c raycasting/raycasting.c
 
 OBJ = $(SRC:.c=.o)

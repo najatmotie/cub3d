@@ -2,16 +2,8 @@
 
 void check_elements(t_cub *cub)
 {
-    if(cub->elements.NO != 1 || cub->elements.SO != 1 || cub->elements.WE != 1 || cub->elements.EA != 1)
-    {
-        free(cub->texters.north_path);
-        free(cub->texters.south_path);
-        free(cub->texters.west_path);
-        free(cub->texters.east_path);
-        write(2, "Error!\n", 7);
-		exit(1);
-    }
-    if(cub->elements.F != 1 || cub->elements.C != 1)
+    if(cub->elements.NO != 1 || cub->elements.SO != 1 || cub->elements.WE != 1 || cub->elements.EA != 1
+        || cub->elements.F != 1 || cub->elements.C != 1)
     {
         write(2, "Error!\n", 7);
 		exit(1);
