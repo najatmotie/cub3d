@@ -1,12 +1,12 @@
 #include "../cub3d.h"
 
-void    draw_minimap(t_cub *cub)
+void        draw_minimap(t_cub *cub)
 {
-    int color;
-    int y = 0;
-    int x = 0;
     int i = 0;
     int j = 0;
+    int y = 0;
+    int x = 0;
+    int color;
     int screen_y;
     int screen_x;
     // printf("height: %d | width: %d\n", cub->map.height, cub->map.width);
@@ -18,7 +18,7 @@ void    draw_minimap(t_cub *cub)
         while (x < cub->map.width)
         {
             // printf("y: %d | x: %d\n", y, x);
-            if(cub->map.map[y][x] == 1)
+            if(cub->map.map[y][x] == '1')
                 color = 0x808080;
             else
                 color = 0x000000;
@@ -30,10 +30,8 @@ void    draw_minimap(t_cub *cub)
                 {
                     screen_x = x * TILE*MINIMAP + i;
                     screen_y = y * TILE*MINIMAP + j;
-                    if (screen_x >= 0 && screen_x < SCREEN_WIDTH && screen_y >= 0 && screen_y < SCREEN_HEIGHT)
+                    if(screen_x >= 0 && screen_x < SCREEN_WIDTH && screen_y >= 0 && screen_y < SCREEN_HEIGHT)
                         mlx_put_pixel(cub->mlx.img_ptr, screen_x, screen_y, color);
-                    else
-                        printf("map out of screen bounds!\n");
                     i++;
                 }
                 j++;
@@ -45,6 +43,7 @@ void    draw_minimap(t_cub *cub)
     i = 0;
     while(i < SCREEN_WIDTH)
     {
+        // printf("%f %f\n", cub.ray[i].end_x,cub.ray[i].end_y);
         DDA(cub, cub->ply.pos_x * (TILE*MINIMAP), cub->ply.pos_y * (TILE*MINIMAP), cub->ray[i].end_x, cub->ray[i].end_y);
         i++;
     }
@@ -65,32 +64,34 @@ void     draw_player(t_cub *cub)
         while(i < 4)
         {
             if(i * i + j * j <= 16)
-                mlx_put_pixel(cub->mlx.img_ptr ,screen_x + j, screen_y + i, 0x808080);
+                mlx_put_pixel(cub->mlx.img_ptr ,screen_x + j, screen_y + i, 0xFFFFFF);
             i++;
         }
         j++;
     }
 }
 
-void    draw_ceiling(t_cub cub, int top, int x)
+void    draw_ceiling(t_cub *cub, int top, int x)
 {
     int y = 0;
 
     while(y < top)
     {
-        mlx_put_pixel(cub.mlx.img_ptr, x, y, 0x89CFF3FF);
+        // if(inside_bounds(*cub, x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, 0x89CFF3FF);
         y++;
     }
 
 }
 
-void    draw_floor(t_cub cub, int bottom, int x)
+void    draw_floor(t_cub *cub, int bottom, int x)
 {
     int y = bottom;
 
     while(y < SCREEN_HEIGHT)
     {
-        mlx_put_pixel(cub.mlx.img_ptr, x, y, 0xB99470FF);
+        // if(inside_bounds(*cub, x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, 0xB99470FF);
         y++;
     }
 }
@@ -121,9 +122,10 @@ void draw_wall(t_cub *cub, int x, int check)
     while (y < wall_bottom)
     {
         // 0xFFFFFF
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, color);
+        // if(inside_bounds(*cub, x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, color);
         y++;
     }
-    draw_ceiling(*cub, wall_top, x);
-    draw_floor(*cub, wall_bottom, x);
+    draw_ceiling(cub, wall_top, x);
+    draw_floor(cub, wall_bottom, x);
 }

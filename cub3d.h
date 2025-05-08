@@ -11,12 +11,14 @@
 #include <math.h>
 
 #define FOV 60
-#define TILE 40
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-#define MOVE_SPEED 0.5
+#define TILE 50
+// #define SCREEN_WIDTH 640
+// #define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 2000
+#define SCREEN_HEIGHT 1000
+#define MOVE_SPEED 0.1
 #define ROTATION_SPEED 1
-#define MINIMAP 0.4
+#define MINIMAP 0.5
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -34,6 +36,7 @@ typedef struct s_map
     int height;
     char **map;
 } t_map;
+
 
 typedef struct s_ray
 {
@@ -60,10 +63,10 @@ typedef struct s_texture
 
 typedef struct s_image
 {
-    mlx_image_t* north_image;
-    mlx_image_t* south_image;
-    mlx_image_t* west_image;
-    mlx_image_t* east_image;
+    mlx_image_t** north_image;
+    mlx_image_t** south_image;
+    mlx_image_t** west_image;
+    mlx_image_t** east_image;
 } t_image;
 
 typedef struct s_colors
@@ -119,7 +122,7 @@ void key_hook(void *param);
 void    draw_minimap(t_cub *cub);
 void    draw_player(t_cub *cub);
 void    cast_all_rays(t_cub *cub);
-int inside_bounds(t_cub *cub, float x, float y);
+int inside_bounds(t_cub cub, float x, float y);
 float normalize_angle(float angle);
 float degree_to_radian(float angle);
 void draw_wall(t_cub *cub, int index, int color);
