@@ -9,7 +9,7 @@ t_ray cast_ray(t_cub *cub, int i)
     
     vertical = get_vertical(cub, cub->ray[i].ray_angle);
     horisontal = get_horisontal(cub, cub->ray[i].ray_angle);
-    shortest = shortest_distance(horisontal, vertical);
+    shortest = shortest_distance(horisontal, vertical, cub->ray[i].ray_angle);
     // (void)shortest;
     ray.wall_hit_x = shortest.wall_hit_x;
     ray.wall_hit_y = shortest.wall_hit_y;
@@ -39,7 +39,7 @@ void    cast_rays(t_cub *cub)
         // cub->dda.end_x = cub->ray[i].wall_hit_x;
         // cub->dda.end_y = cub->ray[i].wall_hit_y;
         // DDA(cub, cub->dda);
-        draw_3d(cub, i);
+        // draw_3d(cub, i);
         i++;
     }
 }

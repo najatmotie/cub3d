@@ -1,5 +1,7 @@
 #include "cub3d_bonus.h"
 
+//  && !check_wall(cub, new_x, new_y, cub->ply.ply_angle)
+
 void    esc_key(t_cub *cub)
 {
     mlx_delete_image(cub->mlx.mlx_ptr, cub->mlx.img_ptr);

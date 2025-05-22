@@ -47,7 +47,8 @@ int draw_textured_wall_column(t_cub *cub, int wall_height,  int wall_top, int x)
     {
         wall_pos = (float)(y - ((SCREEN_HEIGHT / 2) - (wall_height / 2)));
         tex_y = (int)((wall_pos * choose_texture(*cub, x)->height) / wall_height);
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, get_texture_color(choose_texture(*cub, x), tex_x, tex_y));
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, get_texture_color(choose_texture(*cub, x), tex_x, tex_y));
         y++;
     }
     return y;
@@ -73,18 +74,15 @@ void draw_3d(t_cub *cub, int x)
         wall_bottom = SCREEN_HEIGHT;
     while(y < wall_top)
     {
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.ceiling_color);
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.ceiling_color);
         y++;
     }
-    // while(y < wall_bottom)
-    // {
-    //     mlx_put_pixel(cub->mlx.img_ptr, x, y, 0xF5F5F5FF);
-    //     y++;
-    // }
     y = draw_textured_wall_column(cub, wall_height, wall_top, x);
     while(y < SCREEN_HEIGHT)
     {
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.floor_color);
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.floor_color);
         y++;
     }
 }

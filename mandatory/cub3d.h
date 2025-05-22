@@ -135,6 +135,7 @@ void    esc_key(t_cub *cub);
 void draw_3d(t_cub *cub, int x);
 void DDA(t_cub *cub, t_dda dda);
 
+bool check_wall(t_cub cub, int x, int y, float angle);
 int inside_bounds(t_cub cub, float x, float y);
 int screen_bounds(float x, float y);
 float normalize_angle(float angle);
@@ -142,7 +143,7 @@ float degree_to_radian(float angle);
 float calculate_distance(float x1, float y1, float x2, float y2);
 t_ray get_horisontal(t_cub *cub, float ray_angle);
 t_ray get_vertical(t_cub *cub, float ray_angle);
-t_ray shortest_distance(t_ray a, t_ray b);
+t_ray shortest_distance(t_ray a, t_ray b, float ray_angle);
 void    cast_rays(t_cub *cub);
 void game_loop(void *param);
 

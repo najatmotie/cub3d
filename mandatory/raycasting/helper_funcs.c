@@ -33,20 +33,30 @@ float calculate_distance(float x1, float y1, float x2, float y2)
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-t_ray shortest_distance(t_ray horisontal, t_ray vertical)
+t_ray shortest_distance(t_ray horisontal, t_ray vertical, float ray_angle)
 {
     if(horisontal.distance_to_wall <= vertical.distance_to_wall)
     {
-        if(sin(degree_to_radian(normalize_angle(horisontal.ray_angle))) > 0)
+        if(sin(degree_to_radian(normalize_angle(ray_angle))) > 0)
             horisontal.wall_side = 'N';
         else
             horisontal.wall_side = 'S';
         return horisontal;
     }
-    if(cos(degree_to_radian(normalize_angle(horisontal.ray_angle))) > 0)
+    if(cos(degree_to_radian(normalize_angle(ray_angle))) > 0)
         vertical.wall_side = 'E';
     else
         vertical.wall_side = 'W';
     return vertical;
 }
 
+bool check_wall(t_cub cub, int x, int y, float angle)
+{
+    if (cub.map.map[y][x] == '1' 
+        || (cub.map.map[y][x] == '0' && cub.map.map[y - 1][x] == '1' && cub.map.map[y][x - 1] == '1' && (int)angle  == 315)
+        || (cub.map.map[y][x] == '0' && cub.map.map[y - 1][x] == '1' && cub.map.map[y][x + 1] == '1' && (int)angle  == 225)
+        || (cub.map.map[y][x] == '0' && cub.map.map[y + 1][x] == '1' && cub.map.map[y][x + 1] == '1' && (int)angle  == 135)
+        || (cub.map.map[y][x] == '0' && cub.map.map[y + 1][x] == '1' && cub.map.map[y][x - 1] == '1' && (int)angle  == 45))
+        return true;
+    return false;
+}

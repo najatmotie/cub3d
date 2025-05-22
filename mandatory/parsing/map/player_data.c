@@ -44,21 +44,18 @@ int check_info_of_player(t_cub *cub, int i, int j)
 	{
 		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
 			return(1);
-		cub->elements.S++;
 		south_info(cub, i, j);
 	}
 	if(cub->map.map[i][j] == 'W')
 	{
 		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
 			return(1);
-		cub->elements.W++;
 		west_info(cub, i, j);
 	}
 	if(cub->map.map[i][j] == 'E')
 	{
 		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
 			return(1);
-		cub->elements.E++;
 		east_info(cub, i, j);
 	}
 	return(0);

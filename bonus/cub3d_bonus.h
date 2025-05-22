@@ -11,7 +11,7 @@
 #include "../MLX42/include/MLX42/MLX42.h"
 
 #define FOV 60
-#define TILE 20
+#define TILE 50
 // #define SCREEN_WIDTH 640
 // #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH 2000
@@ -19,6 +19,7 @@
 #define MOVE_SPEED 0.1
 #define ROTATION_SPEED 1
 #define MINIMAP 0.5
+// #define MINIMAP 1
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -99,8 +100,8 @@ typedef struct s_cub
     t_elements elements;
 } t_cub;
 
-char	*get_next_line(int fd);
 
+char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -136,12 +137,11 @@ void    esc_key(t_cub *cub);
 
 void    draw_minimap(t_cub *cub);
 void    draw_player(t_cub *cub);
-void    draw_ceiling(t_cub *cub, int top, int x);
-void    draw_floor(t_cub *cub, int bottom, int x);
 void draw_3d(t_cub *cub, int index);
 void DDA(t_cub *cub, t_dda dda);
 void    draw_rays(t_cub *cub);
 
+bool check_wall(t_cub cub, int x, int y, float angle);
 int screen_bounds(float x, float y);
 int inside_bounds(t_cub cub, float x, float y);
 float normalize_angle(float angle);
@@ -149,7 +149,7 @@ float degree_to_radian(float angle);
 float calculate_distance(float x1, float y1, float x2, float y2);
 t_ray get_horisontal(t_cub *cub, float ray_angle);
 t_ray get_vertical(t_cub *cub, float ray_angle);
-t_ray shortest_distance(t_ray a, t_ray b);
+t_ray shortest_distance(t_ray horisontal, t_ray vertical, float ray_angle);
 void    cast_rays(t_cub *cub);
 void game_loop(void *param);
 

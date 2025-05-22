@@ -50,7 +50,7 @@ int	check_content_of_map(t_cub *cub)
 	return (0);
 }
 
-int	check_wall(int width, int height, char **map)
+int	check_wall_is_closed(int width, int height, char **map)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ int	check_wall(int width, int height, char **map)
 
 void	check_errors(t_cub *cub)
 {
-	if (check_empty(cub->map.width, cub->map.map) || check_content_of_map(cub) || check_wall(cub->map.width, cub->map.height, cub->map.map))
+	if (check_empty(cub->map.width, cub->map.map) || check_content_of_map(cub) || check_wall_is_closed(cub->map.width, cub->map.height, cub->map.map))
 	{
 		double_free(cub->map.map);
 		write(2, "Error!\n", 7);

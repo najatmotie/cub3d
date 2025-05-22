@@ -15,8 +15,7 @@ void    draw_tile(t_cub *cub, int x, int y, int color)
         {
             screen_x = x * TILE * MINIMAP + i;
             screen_y = y * TILE * MINIMAP + j;
-            if(screen_bounds(screen_x, screen_y))
-                mlx_put_pixel(cub->mlx.img_ptr, screen_x, screen_y, color);
+            mlx_put_pixel(cub->mlx.img_ptr, screen_x, screen_y, color);
             i++;
         }
         j++;
@@ -31,10 +30,10 @@ void        draw_minimap(t_cub *cub)
     
     x = 0;
     y = 0;
-    while(y < cub->map.height)
+    while(y < cub->map.height && y < SCREEN_HEIGHT / (TILE * MINIMAP))
     {
         x = 0;
-        while (x < cub->map.width)
+        while (x < cub->map.width && SCREEN_WIDTH / (TILE * MINIMAP))
         {
             if(cub->map.map[y][x] == '1')
                 color = 0x808080;

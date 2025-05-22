@@ -3,8 +3,8 @@
 void	north_info(t_cub *cub, int i, int j)
 {
 	cub->elements.N++;
-	cub->ply.ply_x = j + 0.5;
-    cub->ply.ply_y = i + 0.5;
+	cub->ply.ply_x = j;
+    cub->ply.ply_y = i;
     cub->ply.ply_angle = 90;
 }
 

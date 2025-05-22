@@ -47,7 +47,8 @@ int draw_textured_wall_column(t_cub *cub, int wall_height,  int wall_top, int x)
     {
         wall_pos = (float)(y - ((SCREEN_HEIGHT / 2) - (wall_height / 2)));
         tex_y = (int)((wall_pos * choose_texture(*cub, x)->height) / wall_height);
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, get_texture_color(choose_texture(*cub, x), tex_x, tex_y));
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, get_texture_color(choose_texture(*cub, x), tex_x, tex_y));
         y++;
     }
     return y;
@@ -56,14 +57,12 @@ int draw_textured_wall_column(t_cub *cub, int wall_height,  int wall_top, int x)
 void draw_3d(t_cub *cub, int x)
 {
     int y = 0;
-    // float corrected_distance;
     int wall_height;
     int wall_top;
     int wall_bottom;
-
-    // corrected_distance = cub->ray[x].distance_to_wall * cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle - cub->ply.ply_angle)));
-    if (cub->ray[x].distance_to_wall < 0.0001f)
-        cub->ray[x].distance_to_wall = 0.0001f;
+    // cub->ray[x].distance_to_wall *= cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle - cub->ply.ply_angle)));
+    // if (cub->ray[x].distance_to_wall < 0.0001f)
+    //     cub->ray[x].distance_to_wall = 0.0001f;
     wall_height = (TILE * SCREEN_HEIGHT) / cub->ray[x].distance_to_wall;
     wall_top = ((SCREEN_HEIGHT / 2) - (wall_height / 2));
     if(wall_top < 0)
@@ -73,18 +72,15 @@ void draw_3d(t_cub *cub, int x)
         wall_bottom = SCREEN_HEIGHT;
     while(y < wall_top)
     {
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.ceiling_color);
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.ceiling_color);
         y++;
     }
-    // while(y < wall_bottom)
-    // {
-    //     mlx_put_pixel(cub->mlx.img_ptr, x, y, 0xF5F5F5FF);
-    //     y++;
-    // }
     y = draw_textured_wall_column(cub, wall_height, wall_top, x);
     while(y < SCREEN_HEIGHT)
     {
-        mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.floor_color);
+        if(screen_bounds(x, y))
+            mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.floor_color);
         y++;
     }
 }

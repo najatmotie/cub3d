@@ -35,8 +35,8 @@ t_ray    get_first_tile_ray_h(t_cub *cub, float ray_angle)
 
 t_ray    complete_ray_until_hit_wall_h(t_cub *cub, t_ray ray, float ray_angle)
 {
-    int grid_x;
-    int grid_y;
+    int map_x;
+    int map_y;
     float opposite;
     float adjacent;
 
@@ -44,18 +44,13 @@ t_ray    complete_ray_until_hit_wall_h(t_cub *cub, t_ray ray, float ray_angle)
     adjacent = opposite / fabs(tan(degree_to_radian(ray_angle)));
     while(inside_bounds(*cub, ray.wall_hit_x/TILE, ray.wall_hit_y/TILE))
     {
-        grid_x = (int)ray.wall_hit_x/TILE;
-        grid_y = (int)ray.wall_hit_y/TILE;
+        map_x = (int)ray.wall_hit_x/TILE;
+        map_y = (int)ray.wall_hit_y/TILE;
 
         if (ray_angle < 180)
-            grid_y = (int)(ray.wall_hit_y - 1)/TILE;
-        if (cub->map.map[grid_y][grid_x] == '1')
+            map_y = (int)(ray.wall_hit_y - 1)/TILE;
+        if (check_wall(*cub, map_x, map_y, ray_angle))
             break ;
-        // if (cub->map.map[grid_y][grid_x] == '1' || (cub->map.map[grid_y][grid_x] == '0' && cub->map.map[grid_y - 1][grid_x] == '1' && cub->map.map[grid_y][grid_x - 1] == '1') 
-        //     || (cub->map.map[grid_y][grid_x] == '0' && cub->map.map[grid_y - 1][grid_x] == '1' && cub->map.map[grid_y][grid_x + 1] == '1')
-        //     || (cub->map.map[grid_y][grid_x] == '0' && cub->map.map[grid_y + 1][grid_x] == '1' && cub->map.map[grid_y][grid_x + 1] == '1')
-        //     || (cub->map.map[grid_y][grid_x] == '0' && cub->map.map[grid_y + 1][grid_x] == '1' && cub->map.map[grid_y][grid_x - 1] == '1'))
-        //     break ;
         if(ray_angle >= 0 && ray_angle <= 180)
             ray.wall_hit_y -= opposite;
         else

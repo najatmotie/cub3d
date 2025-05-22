@@ -21,7 +21,6 @@ void DDA(t_cub *cub, t_dda dda)
     y_increment = dda.distance_y / (float)dda.pixels_steps; 
     x = dda.start_x; 
     y = dda.start_y; 
-    
     i = 0;
     while(i <= dda.pixels_steps) 
     { 

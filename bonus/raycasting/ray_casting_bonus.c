@@ -9,7 +9,7 @@ t_ray cast_ray(t_cub *cub, int x)
     
     vertical = get_vertical(cub, cub->ray[x].ray_angle);
     horisontal = get_horisontal(cub, cub->ray[x].ray_angle);
-    shortest = shortest_distance(horisontal, vertical);
+    shortest = shortest_distance(horisontal, vertical, cub->ray[x].ray_angle);
     ray.wall_hit_x = shortest.wall_hit_x;
     ray.wall_hit_y = shortest.wall_hit_y;
     ray.wall_side = shortest.wall_side;
