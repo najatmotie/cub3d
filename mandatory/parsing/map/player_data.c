@@ -1,62 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_data.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 13:50:54 by nmotie-           #+#    #+#             */
+/*   Updated: 2025/05/26 12:10:59 by nmotie-          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-void	north_info(t_cub *cub, int i, int j)
+bool	north_info(t_cub *cub, int i, int j)
 {
-	cub->elements.N++;
+	if (cub->elements.n != 0 || cub->elements.s != 0 || cub->elements.w != 0
+		|| cub->elements.e != 0)
+		return (false);
+	cub->elements.n++;
 	cub->ply.ply_x = j + 0.5;
-    cub->ply.ply_y = i + 0.5;
-    cub->ply.ply_angle = 90;
+	cub->ply.ply_y = i + 0.5;
+	cub->ply.ply_angle = 90;
+	return (true);
 }
 
-void	south_info(t_cub *cub, int i, int j)
+bool	south_info(t_cub *cub, int i, int j)
 {
-	cub->elements.S++;
-	cub->ply.ply_x = j;
-    cub->ply.ply_y = i;
-    cub->ply.ply_angle = 270;
+	if (cub->elements.n != 0 || cub->elements.s != 0 || cub->elements.w != 0
+		|| cub->elements.e != 0)
+		return (false);
+	cub->elements.s++;
+	cub->ply.ply_x = j + 0.5;
+	cub->ply.ply_y = i + 0.5;
+	cub->ply.ply_angle = 270;
+	return (true);
 }
 
-void	west_info(t_cub *cub, int i, int j)
+bool	west_info(t_cub *cub, int i, int j)
 {
-	cub->elements.W++;
-	cub->ply.ply_x = j;
-    cub->ply.ply_y = i;
-    cub->ply.ply_angle = 180;
+	if (cub->elements.n != 0 || cub->elements.s != 0 || cub->elements.w != 0
+		|| cub->elements.e != 0)
+		return (false);
+	cub->elements.w++;
+	cub->ply.ply_x = j + 0.5;
+	cub->ply.ply_y = i + 0.5;
+	cub->ply.ply_angle = 180;
+	return (true);
 }
 
-void	east_info(t_cub *cub, int i, int j)
+bool	east_info(t_cub *cub, int i, int j)
 {
-	cub->elements.E++;
-	cub->ply.ply_x = j;
-    cub->ply.ply_y = i;
-    cub->ply.ply_angle = 0;
+	if (cub->elements.n != 0 || cub->elements.s != 0 || cub->elements.w != 0
+		|| cub->elements.e != 0)
+		return (false);
+	cub->elements.e++;
+	cub->ply.ply_x = j + 0.5;
+	cub->ply.ply_y = i + 0.5;
+	cub->ply.ply_angle = 0;
+	return (true);
 }
 
-int check_info_of_player(t_cub *cub, int i, int j)
+int	check_info_of_player(t_cub *cub, int i, int j)
 {
-	if(cub->map.map[i][j] == 'N')
+	if (cub->map.map[i][j] == 'N')
 	{
-		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
-			return(1);
-		north_info(cub, i, j);
+		if (!north_info(cub, i, j))
+			return (1);
 	}
-	if(cub->map.map[i][j] == 'S')
+	if (cub->map.map[i][j] == 'S')
 	{
-		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
-			return(1);
-		south_info(cub, i, j);
+		if (!south_info(cub, i, j))
+			return (1);
 	}
-	if(cub->map.map[i][j] == 'W')
+	if (cub->map.map[i][j] == 'W')
 	{
-		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
-			return(1);
-		west_info(cub, i, j);
+		if (!west_info(cub, i, j))
+			return (1);
 	}
-	if(cub->map.map[i][j] == 'E')
+	if (cub->map.map[i][j] == 'E')
 	{
-		if(cub->elements.N != 0 || cub->elements.S != 0 || cub->elements.W != 0 || cub->elements.E != 0)
-			return(1);
-		east_info(cub, i, j);
+		if (east_info(cub, i, j))
+			return (1);
 	}
-	return(0);
+	return (0);
 }

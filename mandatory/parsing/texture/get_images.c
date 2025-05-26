@@ -1,78 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_images.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 17:27:54 by nmotie-           #+#    #+#             */
+/*   Updated: 2025/05/26 12:39:18 by nmotie-          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-bool    north_image(t_cub *cub, char *path)
+void	north_image(t_cub *cub, char *path)
 {
-    cub->elements.NO++;
-    cub->textures.north_texture = mlx_load_png(path);
-    if (!cub->textures.north_texture)
-    {
-        printf("%s\n", mlx_strerror(mlx_errno));
-        exit(1);
-    }
-    return true;
+	cub->elements.no++;
+	cub->textures.north_texture = mlx_load_png(path);
+	if (!cub->textures.north_texture)
+	{
+		printf("%s\n", mlx_strerror(mlx_errno));
+		exit(1);
+	}
 }
 
-bool    south_image(t_cub *cub, char *path)
+void	south_image(t_cub *cub, char *path)
 {
-    cub->elements.SO++;
-    cub->textures.south_texture = mlx_load_png(path);
-    if (!cub->textures.south_texture)
-    {
-        printf("%s\n", mlx_strerror(mlx_errno));
-        exit(1);
-    }
-    return true;
+	cub->elements.so++;
+	cub->textures.south_texture = mlx_load_png(path);
+	if (!cub->textures.south_texture)
+	{
+		printf("%s\n", mlx_strerror(mlx_errno));
+		exit(1);
+	}
 }
 
-bool    west_image(t_cub *cub, char *path)
+void	west_image(t_cub *cub, char *path)
 {
-    cub->elements.WE++;
-    cub->textures.west_texture = mlx_load_png(path);
-    if (!cub->textures.west_texture)
-    {
-        printf("%s\n", mlx_strerror(mlx_errno));
-        exit(1);
-    }
-    return true;
+	cub->elements.we++;
+	cub->textures.west_texture = mlx_load_png(path);
+	if (!cub->textures.west_texture)
+	{
+		printf("%s\n", mlx_strerror(mlx_errno));
+		exit(1);
+	}
 }
 
-bool    east_image(t_cub *cub, char *path)
+void	east_image(t_cub *cub, char *path)
 {
-    cub->elements.EA++;
-    cub->textures.east_texture = mlx_load_png(path);
-    if (!cub->textures.east_texture)
-    {
-        printf("%s\n", mlx_strerror(mlx_errno));
-        exit(1);
-    }
-    return true;
+	cub->elements.ea++;
+	cub->textures.east_texture = mlx_load_png(path);
+	if (!cub->textures.east_texture)
+	{
+		printf("%s\n", mlx_strerror(mlx_errno));
+		exit(1);
+	}
 }
 
-bool parse_paths(char **s, t_cub *cub)
+bool	parse_paths(char **s, t_cub *cub)
 {
-    if(s[0] && s[1] && ft_strcmp(s[0], "NO") == 0)
-    {
-        if(!north_image(cub, remove_newline(s[1])))
-            return (false);
-        return true;
-    }
-    else if(s[0] && s[1] && ft_strcmp(s[0], "SO") == 0)
-    {
-        if(!south_image(cub, remove_newline(s[1])))
-            return (false);
-        return true;
-    }
-    else if(s[0] && s[1] && ft_strcmp(s[0], "WE") == 0)
-    {
-        if(!west_image(cub, remove_newline(s[1])))
-            return (false);
-        return true;
-    }
-    else if(s[0] && s[1] && ft_strcmp(s[0], "EA") == 0)
-    {
-        if(!east_image(cub, remove_newline(s[1])))
-            return (false);
-        return true;
-    }
-   return false;
+	if (s[2] != NULL)
+		return (false);
+	if (s[0] && s[1] && ft_strcmp(s[0], "NO") == 0)
+	{
+		north_image(cub, s[1]);
+		return (true);
+	}
+	else if (s[0] && s[1] && ft_strcmp(s[0], "SO") == 0)
+	{
+		south_image(cub, s[1]);
+		return (true);
+	}
+	else if (s[0] && s[1] && ft_strcmp(s[0], "WE") == 0)
+	{
+		west_image(cub, s[1]);
+		return (true);
+	}
+	else if (s[0] && s[1] && ft_strcmp(s[0], "EA") == 0)
+	{
+		east_image(cub, s[1]);
+		return (true);
+	}
+	return (false);
 }

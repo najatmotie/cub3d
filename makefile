@@ -16,7 +16,7 @@ SRC = mandatory/gnl/get_next_line.c mandatory/libft/ft_atoi.c mandatory/libft/ft
 	mandatory/parsing/map/parse_map.c mandatory/parsing/map/map_utils.c mandatory/parsing/map/player_data.c mandatory/parsing/map/check_errors.c \
 	mandatory/parsing/texture/get_images.c mandatory/parsing/texture/get_colors.c mandatory/parsing/texture/parse_textures.c mandatory/parsing/texture/texture_utils.c \
 	mandatory/raycasting/ray_casting.c mandatory/raycasting/helper_funcs.c mandatory/raycasting/vertical.c mandatory/raycasting/horisontal.c \
-	mandatory/rendering/dda.c mandatory/rendering/3d.c
+	mandatory/rendering/3d.c
 
 SRCB = bonus/gnl/get_next_line_bonus.c bonus/libft/ft_atoi_bonus.c bonus/libft/ft_split_bonus.c bonus/libft/ft_strchr_bonus.c \
 	bonus/libft/ft_strcmp_bonus.c bonus/libft/ft_strdup_bonus.c bonus/libft/ft_strjoin_bonus.c bonus/libft/ft_strlen_bonus.c bonus/libft/ft_strrchr_bonus.c \
@@ -24,8 +24,7 @@ SRCB = bonus/gnl/get_next_line_bonus.c bonus/libft/ft_atoi_bonus.c bonus/libft/f
 	bonus/parsing/map/parse_map_bonus.c bonus/parsing/map/map_utils_bonus.c bonus/parsing/map/player_data_bonus.c bonus/parsing/map/check_errors_bonus.c \
 	bonus/parsing/texture/get_images_bonus.c bonus/parsing/texture/get_colors_bonus.c bonus/parsing/texture/parse_textures_bonus.c bonus/parsing/texture/texture_utils_bonus.c \
 	bonus/raycasting/ray_casting_bonus.c bonus/raycasting/helper_funcs_bonus.c bonus/raycasting/vertical_bonus.c bonus/raycasting/horisontal_bonus.c \
-	bonus/rendering/dda_bonus.c bonus/rendering/3d_bonus.c bonus/rendering/minimap_bonus.c \
-	bonus/rendering/player_bonus.c bonus/rendering/rays_bonus.c
+	bonus/rendering/3d_bonus.c bonus/rendering/minimap_bonus.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -1,64 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_colors.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 17:27:51 by nmotie-           #+#    #+#             */
+/*   Updated: 2025/05/26 22:39:06 by nmotie-          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
-bool    floor_color(char *line, char **s, t_cub *cub)
+bool	floor_color(char *line, char **s, t_cub *cub)
 {
-    int r;
-    int g;
-    int b;
-    char **colors;
+	int		r;
+	int		g;
+	int		b;
+	char	**values;
 
-    if(s[0] && s[1] && ft_strcmp(s[0], "F") == 0)
-    {
-        colors = ft_split(s[1], ',');
-        if(colors[0] && colors[1] && colors[2] && !colors[3])
-        {
-            r = ft_atoi(colors[0]);
-            g = ft_atoi(colors[1]);
-            b = ft_atoi(colors[2]);
-            if((r < 0 && r > 255) || (g < 0 && g > 255) || (b < 0 && b > 255))
-                free_ressources(line, s, colors);
-            double_free(colors);
-            cub->elements.F++;
-            cub->textures.floor_color = (r << 16) | (g << 8) | b;
-            return true;
-        }
-        else
-            free_ressources(line, s, colors);
-    }
-    return false;
+	if (s[0] && s[1] && ft_strcmp(s[0], "F") == 0 && !s[2])
+	{
+		values = ft_split(s[1], ',');
+		if (values[0] && values[1] && values[2] && !values[3])
+		{
+			r = ft_atoi(values[0]);
+			g = ft_atoi(values[1]);
+			b = ft_atoi(values[2]);
+			if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+				free_ressources(line, s, values);
+			double_free(values);
+			cub->elements.f++;
+			cub->textures.floor_color = (r << 24) | (g << 16) | (b << 8) | 255;
+			return (true);
+		}
+		else
+			free_ressources(line, s, values);
+	}
+	return (false);
 }
 
-bool    ceiling_color(char *line, char **s, t_cub *cub)
+bool	ceiling_color(char *line, char **s, t_cub *cub)
 {
-    int r;
-    int g;
-    int b;
-    char **colors;
+	int		r;
+	int		g;
+	int		b;
+	char	**values;
 
-    if(s[0] && s[1] && ft_strcmp(s[0], "C") == 0)
-    {
-        colors = ft_split(s[1], ',');
-        if(colors[0] && colors[1] && colors[2] && !colors[3])
-        {
-            r = ft_atoi(colors[0]);
-            g = ft_atoi(colors[1]);
-            b = ft_atoi(colors[2]);;
-            if((r < 0 && r > 255) || (g < 0 && g > 255) || (b < 0 && b > 255))
-                free_ressources(line, s, colors);
-            double_free(colors);
-            cub->elements.C++;
-            cub->textures.ceiling_color = (r << 16) | (g << 8) | b;
-            return true;
-        }
-        else
-            free_ressources(line, s, colors);
-    }
-    return false;
+	if (s[0] && s[1] && ft_strcmp(s[0], "C") == 0 && !s[2])
+	{
+		values = ft_split(s[1], ',');
+		if (values[0] && values[1] && values[2] && !values[3])
+		{
+			r = ft_atoi(values[0]);
+			g = ft_atoi(values[1]);
+			b = ft_atoi(values[2]);
+			if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+				free_ressources(line, s, values);
+			double_free(values);
+			cub->elements.c++;
+			cub->textures.ceiling_color = 
+				(r << 24) | (g << 16) | (b << 8) | 255;
+			return (true);
+		}
+		else
+			free_ressources(line, s, values);
+	}
+	return (false);
 }
 
-bool    parse_colors(char *line, char **s, t_cub *cub)
+bool	parse_colors(char *line, char **s, t_cub *cub)
 {
-    if(!floor_color(line, s, cub) && !ceiling_color(line, s, cub))
-        return false;
-    return true;
+	if (!floor_color(line, s, cub) && !ceiling_color(line, s, cub))
+		return (false);
+	return (true);
 }
