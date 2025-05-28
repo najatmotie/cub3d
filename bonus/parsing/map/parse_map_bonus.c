@@ -6,7 +6,7 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:52 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:05:42 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:18:08 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,24 @@ void	copy_line(t_cub *cub, char *line, int i)
 	cub->map.map[i][j] = '\0';
 }
 
-void	fill_map(t_cub *cub, int fd, int *eof, int i)
+void	fill_map(t_cub *cub, int fd, int i)
 {
 	char	*line;
 
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-		{
-			free(line);
-			*eof = true;
-			break ;
-		}
-		else
-		{
-			copy_line(cub, line, i);
-			free(line);
-			break ;
-		}
-	}
+	line = get_next_line(fd);
+	if (line && ft_strcmp(line, "\n") != 0)
+		copy_line(cub, line, i);
+	free(line);
+	line = NULL;
 }
 
 void	parse_map(t_cub *cub, char *line, int fd)
 {
 	int	i;
-	int	eof;
 
 	i = 0;
-	eof = false;
 	cub->map.map = malloc((cub->map.height + 1) * sizeof(char *));
-	while (1)
+	while (i < cub->map.height)
 	{
 		cub->map.map[i] = malloc(cub->map.width + 1);
 		if (line)
@@ -103,9 +90,7 @@ void	parse_map(t_cub *cub, char *line, int fd)
 			i++;
 			continue ;
 		}
-		fill_map(cub, fd, &eof, i);
-		if (eof)
-			break ;
+		fill_map(cub, fd, i);
 		i++;
 	}
 	close(fd);

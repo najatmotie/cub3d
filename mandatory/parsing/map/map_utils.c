@@ -6,7 +6,7 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:48 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 13:50:49 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:27:23 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,12 @@ void	skip_identifiers(int fd)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (!line)
-		{
-			close(fd);
-			return ;
-		}
-		if ((ft_strchr(line, '0') || ft_strchr(line, '1')) && !ft_strchr(line,
-				','))
-		{
-			free(line);
+		if ((!line || ft_strchr(line, '0') || ft_strchr(line, '1'))
+			&& !ft_strchr(line, ','))
 			break ;
-		}
 		free(line);
 	}
+	free(line);
 }
 
 void	get_map_size(char *file, t_cub *cub)
@@ -49,7 +42,7 @@ void	get_map_size(char *file, t_cub *cub)
 	{
 		cub->map.height++;
 		line = get_next_line(fd);
-		if (!line)
+		if (!line || ft_strcmp(line, "\n") == 0)
 			break ;
 		cub->map.width = ft_strlen(line) - 1;
 		if (fix_width < cub->map.width)

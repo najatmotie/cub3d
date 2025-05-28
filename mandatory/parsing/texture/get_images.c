@@ -6,78 +6,92 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:54 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 12:39:18 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:26:56 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	north_image(t_cub *cub, char *path)
+bool	north_image(t_cub *cub, char *path)
 {
+	if (cub->elements.no != 0)
+		return (false);
 	cub->elements.no++;
 	cub->textures.north_texture = mlx_load_png(path);
 	if (!cub->textures.north_texture)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
-		exit(1);
+		return (false);
 	}
+	return (true);
 }
 
-void	south_image(t_cub *cub, char *path)
+bool	south_image(t_cub *cub, char *path)
 {
+	if (cub->elements.so != 0)
+		return (false);
 	cub->elements.so++;
 	cub->textures.south_texture = mlx_load_png(path);
 	if (!cub->textures.south_texture)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
-		exit(1);
+		return (false);
 	}
+	return (true);
 }
 
-void	west_image(t_cub *cub, char *path)
+bool	west_image(t_cub *cub, char *path)
 {
+	if (cub->elements.we != 0)
+		return (false);
 	cub->elements.we++;
 	cub->textures.west_texture = mlx_load_png(path);
 	if (!cub->textures.west_texture)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
-		exit(1);
+		return (false);
 	}
+	return (true);
 }
 
-void	east_image(t_cub *cub, char *path)
+bool	east_image(t_cub *cub, char *path)
 {
+	if (cub->elements.ea != 0)
+		return (false);
 	cub->elements.ea++;
 	cub->textures.east_texture = mlx_load_png(path);
 	if (!cub->textures.east_texture)
 	{
 		printf("%s\n", mlx_strerror(mlx_errno));
-		exit(1);
+		return (false);
 	}
+	return (true);
 }
 
 bool	parse_paths(char **s, t_cub *cub)
 {
-	if (s[2] != NULL)
-		return (false);
-	if (s[0] && s[1] && ft_strcmp(s[0], "NO") == 0)
+	if (s[0] && s[1] && !s[2] && ft_strcmp(s[0], "NO") == 0)
 	{
-		north_image(cub, s[1]);
+		if (!north_image(cub, s[1]))
+			return (false);
 		return (true);
 	}
-	else if (s[0] && s[1] && ft_strcmp(s[0], "SO") == 0)
+	else if (s[0] && s[1] && !s[2] && ft_strcmp(s[0], "SO") == 0)
 	{
-		south_image(cub, s[1]);
+		if (!south_image(cub, s[1]))
+			return (false);
 		return (true);
 	}
-	else if (s[0] && s[1] && ft_strcmp(s[0], "WE") == 0)
+	else if (s[0] && s[1] && !s[2] && ft_strcmp(s[0], "WE") == 0)
 	{
-		west_image(cub, s[1]);
+		if (!west_image(cub, s[1]))
+			return (false);
 		return (true);
 	}
-	else if (s[0] && s[1] && ft_strcmp(s[0], "EA") == 0)
+	else if (s[0] && s[1] && !s[2] && ft_strcmp(s[0], "EA") == 0)
 	{
-		east_image(cub, s[1]);
+		if (!east_image(cub, s[1]))
+			return (false);
 		return (true);
 	}
 	return (false);

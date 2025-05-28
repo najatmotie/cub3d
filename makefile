@@ -31,10 +31,10 @@ OBJ = $(SRC:.c=.o)
 OBJB = $(SRCB:.c=.o)
 
 $(NAME) : $(OBJ) mandatory/cub3d.h
-	cc $(OBJ) $(DEPENDECES) -Iinclude -lglfw  -L$(GLFW) $(MLXLIB) -fsanitize=address -g -o $(NAME)
+	cc $(OBJ) $(DEPENDECES) -Iinclude -lglfw  -L$(GLFW) $(MLXLIB) -o $(NAME)
 
 $(NAMEB) : $(OBJB) bonus/cub3d_bonus.h
-	cc $(OBJB) $(DEPENDECES) -Iinclude -lglfw  -L$(GLFW) $(MLXLIB) -fsanitize=address -g -o $(NAMEB)
+	cc $(OBJB) $(DEPENDECES) -Iinclude -lglfw  -L$(GLFW) $(MLXLIB) -o $(NAMEB)
 
 all : $(NAME)
 

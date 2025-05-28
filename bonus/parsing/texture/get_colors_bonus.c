@@ -6,7 +6,7 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:51 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 22:39:30 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:16:50 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ bool	floor_color(char *line, char **s, t_cub *cub)
 			g = ft_atoi(values[1]);
 			b = ft_atoi(values[2]);
 			if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-				free_ressources(line, s, values);
+				free_ressources(cub, line, s, values);
 			double_free(values);
 			cub->elements.f++;
 			cub->textures.floor_color = (r << 24) | (g << 16) | (b << 8) | 255;
 			return (true);
 		}
 		else
-			free_ressources(line, s, values);
+			free_ressources(cub, line, s, values);
 	}
 	return (false);
 }
@@ -56,7 +56,7 @@ bool	ceiling_color(char *line, char **s, t_cub *cub)
 			g = ft_atoi(values[1]);
 			b = ft_atoi(values[2]);
 			if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-				free_ressources(line, s, values);
+				free_ressources(cub, line, s, values);
 			double_free(values);
 			cub->elements.c++;
 			cub->textures.ceiling_color = 
@@ -64,7 +64,7 @@ bool	ceiling_color(char *line, char **s, t_cub *cub)
 			return (true);
 		}
 		else
-			free_ressources(line, s, values);
+			free_ressources(cub, line, s, values);
 	}
 	return (false);
 }

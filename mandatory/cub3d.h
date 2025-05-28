@@ -6,7 +6,7 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:11 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:17:00 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 12:03:35 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define TILE 50
 # define MOVE_SPEED 0.1
 # define ROTATION_SPEED 1
-# define SCREEN_WIDTH 1600
-# define SCREEN_HEIGHT 1280
+# define SCREEN_WIDTH 1300
+# define SCREEN_HEIGHT 1000
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -127,14 +127,14 @@ void				parse_map(t_cub *cub, char *line, int fd);
 void				parsing_file(t_cub *cub, char *file);
 void				check_errors(t_cub *cub);
 int					check_info_of_player(t_cub *cub, int i, int j);
-void				check_elements(t_cub *cub);
 bool				parse_paths(char **s, t_cub *cub);
 bool				parse_colors(char *line, char **s, t_cub *cub);
 
 bool				can_move(t_cub cub, int x, int y);
 void				init_data(t_cub *cub);
 void				double_free(char **map);
-void				free_ressources(char *line, char **s, char **colors);
+void				free_ressources(t_cub *cub, char *line, char **s,
+						char **colors);
 void				cleanup_ressources(t_cub *cub);
 void				my_mlx_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y,
 						uint32_t color);

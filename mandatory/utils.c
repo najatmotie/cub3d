@@ -6,7 +6,7 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:08 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 16:14:25 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 10:59:10 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	init_data(t_cub *cub)
 	cub->elements.ea = 0;
 	cub->elements.c = 0;
 	cub->elements.f = 0;
+	cub->textures.north_texture = NULL;
+	cub->textures.south_texture = NULL;
+	cub->textures.west_texture = NULL;
+	cub->textures.east_texture = NULL;
 }
 
 bool	can_move(t_cub cub, int x, int y)

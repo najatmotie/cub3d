@@ -6,18 +6,27 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:57 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 12:43:28 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:11:35 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-void	check_elements(t_cub *cub)
+void	check_elements(t_cub *cub, char *line)
 {
 	if (cub->elements.no != 1 || cub->elements.we != 1 || cub->elements.so != 1
 		|| cub->elements.ea != 1 || cub->elements.c != 1
 		|| cub->elements.f != 1)
 	{
+		if (cub->textures.north_texture)
+			mlx_delete_texture(cub->textures.north_texture);
+		if (cub->textures.south_texture)
+			mlx_delete_texture(cub->textures.south_texture);
+		if (cub->textures.west_texture)
+			mlx_delete_texture(cub->textures.west_texture);
+		if (cub->textures.east_texture)
+			mlx_delete_texture(cub->textures.east_texture);
+		free(line);
 		write(2, "Error!\n", 7);
 		exit(1);
 	}
@@ -41,13 +50,13 @@ char	*parse_textures(int fd, char *line, t_cub *cub)
 			continue ;
 		}
 		if (!parse_paths(s, cub) && !parse_colors(line, s, cub))
-			free_ressources(line, s, NULL);
+			free_ressources(cub, line, s, NULL);
 		else
 		{
 			free(line);
 			double_free(s);
 		}
 	}
-	check_elements(cub);
+	check_elements(cub, line);
 	return (line);
 }

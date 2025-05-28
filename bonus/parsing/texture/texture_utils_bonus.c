@@ -6,14 +6,22 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:28:00 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:04:41 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/28 11:17:23 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d_bonus.h"
 
-void	free_ressources(char *line, char **s, char **values)
+void	free_ressources(t_cub *cub, char *line, char **s, char **values)
 {
+	if (cub->textures.north_texture)
+		mlx_delete_texture(cub->textures.north_texture);
+	if (cub->textures.south_texture)
+		mlx_delete_texture(cub->textures.south_texture);
+	if (cub->textures.west_texture)
+		mlx_delete_texture(cub->textures.west_texture);
+	if (cub->textures.east_texture)
+		mlx_delete_texture(cub->textures.east_texture);
 	free(line);
 	double_free(s);
 	double_free(values);
