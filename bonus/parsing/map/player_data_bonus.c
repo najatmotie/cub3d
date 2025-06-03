@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:54 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:18:46 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:37:17 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
 bool	north_info(t_cub *cub, int i, int j)
 {
@@ -79,7 +79,7 @@ int	check_info_of_player(t_cub *cub, int i, int j)
 	}
 	if (cub->map.map[i][j] == 'E')
 	{
-		if (east_info(cub, i, j))
+		if (!east_info(cub, i, j))
 			return (1);
 	}
 	return (0);

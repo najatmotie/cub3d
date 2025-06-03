@@ -6,11 +6,17 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:49:59 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 12:50:35 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:30:45 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	esc_key(t_cub *cub)
+{
+	mlx_delete_image(cub->mlx.mlx_ptr, cub->mlx.img_ptr);
+	mlx_close_window(cub->mlx.mlx_ptr);
+}
 
 void	game_loop(void *param)
 {
@@ -33,8 +39,8 @@ void	game_loop(void *param)
 		cub->ply.ply_angle -= ROTATION_SPEED;
 	cub->ply.ply_angle = normalize_angle(cub->ply.ply_angle);
 	mlx_delete_image(cub->mlx.mlx_ptr, cub->mlx.img_ptr);
-	cub->mlx.img_ptr = mlx_new_image(cub->mlx.mlx_ptr, SCREEN_WIDTH,
-			SCREEN_HEIGHT);
+	cub->mlx.img_ptr = mlx_new_image(cub->mlx.mlx_ptr, WINDOW_WIDTH,
+			WINDOW_HEIGHT);
 	mlx_image_to_window(cub->mlx.mlx_ptr, cub->mlx.img_ptr, 0, 0);
 	cast_rays(cub);
 }

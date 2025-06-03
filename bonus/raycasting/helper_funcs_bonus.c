@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:30 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:00:07 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/01 17:55:31 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 float	degree_to_radian(float angle)
 {

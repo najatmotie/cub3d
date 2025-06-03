@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:37 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:08:57 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:37:47 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

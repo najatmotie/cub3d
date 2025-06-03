@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:36 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 11:28:18 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:30:13 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 bool	check_wall(t_cub cub, int x, int y, float ray_angle)
 {
@@ -72,7 +72,7 @@ void	cast_rays(t_cub *cub)
 
 	x = 0;
 	fov = FOV;
-	num_rays = SCREEN_WIDTH;
+	num_rays = WINDOW_WIDTH;
 	ray_angle_increment = fov / num_rays;
 	while (x < num_rays)
 	{

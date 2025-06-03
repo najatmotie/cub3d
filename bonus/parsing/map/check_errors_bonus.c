@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:44 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:19:11 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:26:02 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
 int	check_empty(int width, char **map)
 {
@@ -18,14 +18,11 @@ int	check_empty(int width, char **map)
 	int	j;
 
 	i = 0;
-	j = 0;
 	if (map[0] == NULL)
 		return (1);
 	while (map[i])
 	{
 		j = 0;
-		if (map[i][j] == '\n' && map[i][j + 1] == '\n')
-			return (1);
 		while (map[i][j] == ' ')
 			j++;
 		if (j == width)
@@ -111,6 +108,7 @@ void	check_errors(t_cub *cub)
 	if (check_empty(cub->map.width, cub->map.map) || check_content_of_map(cub)
 		|| check_wall_is_closed(cub->map.width, cub->map.height, cub->map.map))
 	{
+		free_textures(cub);
 		double_free(cub->map.map);
 		write(2, "Error!\n", 7);
 		exit(1);

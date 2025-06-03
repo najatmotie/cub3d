@@ -6,33 +6,56 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:57 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:11:35 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:34:41 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../../include/cub3d.h"
+
+void	cleanup(char *line, char **s)
+{
+	free(line);
+	double_free(s);
+}
+
+void	free_ressources(t_cub *cub, char *line, char **s, char **values)
+{
+	free(line);
+	free_textures(cub);
+	double_free(s);
+	double_free(values);
+	write(2, "Error!\n", 7);
+	exit(1);
+}
 
 void	check_elements(t_cub *cub, char *line)
 {
 	if (cub->elements.no != 1 || cub->elements.we != 1 || cub->elements.so != 1
 		|| cub->elements.ea != 1 || cub->elements.c != 1
 		|| cub->elements.f != 1)
-	{
-		if (cub->textures.north_texture)
-			mlx_delete_texture(cub->textures.north_texture);
-		if (cub->textures.south_texture)
-			mlx_delete_texture(cub->textures.south_texture);
-		if (cub->textures.west_texture)
-			mlx_delete_texture(cub->textures.west_texture);
-		if (cub->textures.east_texture)
-			mlx_delete_texture(cub->textures.east_texture);
-		free(line);
-		write(2, "Error!\n", 7);
-		exit(1);
-	}
+		free_ressources(cub, line, NULL, NULL);
 }
 
-char	*parse_textures(int fd, char *line, t_cub *cub)
+char	*remove_newline(t_cub *cub, char *line)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = malloc(ft_strlen(line));
+	if (!str)
+		failure_handling(cub, line, -3);
+	while (line[i] != '\n')
+	{
+		str[i] = line[i];
+		i++;
+	}
+	free(line);
+	str[i] = '\0';
+	return (str);
+}
+
+char	*parse_textures(t_cub *cub, char *line, int fd)
 {
 	char	**s;
 
@@ -41,21 +64,18 @@ char	*parse_textures(int fd, char *line, t_cub *cub)
 		line = get_next_line(fd);
 		if ((!line || ft_strchr(line, '1')) && !ft_strchr(line, ','))
 			break ;
-		line = remove_newline(line);
+		if (ft_strchr(line, '\n'))
+			line = remove_newline(cub, line);
 		s = ft_split(line, ' ');
 		if (!s[0] || (s[0][0] == '\0' && !s[1]))
 		{
-			free(line);
-			double_free(s);
+			cleanup(line, s);
 			continue ;
 		}
-		if (!parse_paths(s, cub) && !parse_colors(line, s, cub))
+		if (!parse_paths(cub, s) && !parse_colors(cub, line, s))
 			free_ressources(cub, line, s, NULL);
 		else
-		{
-			free(line);
-			double_free(s);
-		}
+			cleanup(line, s);
 	}
 	check_elements(cub, line);
 	return (line);

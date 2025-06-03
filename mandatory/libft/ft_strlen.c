@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:34 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 14:26:30 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 21:14:55 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -18,8 +18,6 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s && s[i])
-	{
 		i++;
-	}
 	return (i);
 }

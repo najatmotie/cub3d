@@ -1,15 +1,16 @@
 NO mandatory/textures/north.png
-SO mandatory/textures/south.png
-WE mandatory/textures/west.png
-EA mandatory/textures/east.png
+SO mandatory/textures/north.png
+WE mandatory/textures/north.png
+EA mandatory/textures/north.png
 
 C 150,142,132
 F 140,140,130
 
 111111111111111
 100000000000001
-100000010000001
+100000010000011
 100000000000001
+111111101111111
 100000000000001
 1000000N0000001
 100000000000001

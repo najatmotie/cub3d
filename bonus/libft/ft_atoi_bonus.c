@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:12 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:07:02 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:37:22 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 int	ft_atoi(const char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:26 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 14:25:39 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 21:15:22 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -19,9 +19,7 @@ char	*ft_strchr(const char *s, int c)
 	while (*s != '\0')
 	{
 		if (*s == (char)c)
-		{
 			return ((char *)s);
-		}
 		s++;
 	}
 	if (*s == (char)c)

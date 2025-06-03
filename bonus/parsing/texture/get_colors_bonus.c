@@ -6,13 +6,13 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:51 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:16:50 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 18:36:26 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
-bool	floor_color(char *line, char **s, t_cub *cub)
+bool	floor_color(t_cub *cub, char *line, char **s)
 {
 	int		r;
 	int		g;
@@ -40,7 +40,7 @@ bool	floor_color(char *line, char **s, t_cub *cub)
 	return (false);
 }
 
-bool	ceiling_color(char *line, char **s, t_cub *cub)
+bool	ceiling_color(t_cub *cub, char *line, char **s)
 {
 	int		r;
 	int		g;
@@ -69,9 +69,9 @@ bool	ceiling_color(char *line, char **s, t_cub *cub)
 	return (false);
 }
 
-bool	parse_colors(char *line, char **s, t_cub *cub)
+bool	parse_colors(t_cub *cub, char *line, char **s)
 {
-	if (!floor_color(line, s, cub) && !ceiling_color(line, s, cub))
+	if (!floor_color(cub, line, s) && !ceiling_color(cub, line, s))
 		return (false);
 	return (true);
 }

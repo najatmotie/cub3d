@@ -6,23 +6,73 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 14:40:00 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:01:02 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/01 18:58:03 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
-int	open_file(char *file)
+void	check_extension(char *file)
 {
-	int	fd;
+	char	*s;
 
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	s = ft_strrchr(file, '.');
+	if (!s || ft_strcmp(s, ".cub") != 0)
 	{
-		perror(file);
+		write(1, "Must Ending With The .cub\n", 26);
 		exit(1);
 	}
-	return (fd);
+}
+
+int	skip_identifiers(int fd, int *width)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			free(line);
+			return (0);
+		}
+		if ((ft_strchr(line, '0') || ft_strchr(line, '1')) && !ft_strchr(line,
+				','))
+		{
+			*width = ft_strlen(line) - 1;
+			free(line);
+			break ;
+		}
+		free(line);
+	}
+	return (1);
+}
+
+void	get_map_size(t_cub *cub, char *file)
+{
+	int		fd;
+	char	*line;
+	int		fix_width;
+
+	fix_width = 0;
+	cub->map.width = 0;
+	fd = open_file(file);
+	cub->map.height = skip_identifiers(fd, &fix_width);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line || only_spaces(line))
+			break ;
+		cub->map.height++;
+		cub->map.width = ft_strlen(line) - 1;
+		if (fix_width < cub->map.width)
+			fix_width = cub->map.width;
+		cub->map.width = 0;
+		free(line);
+	}
+	free(line);
+	close(fd);
+	cub->map.width = fix_width;
 }
 
 void	parsing_file(t_cub *cub, char *file)
@@ -31,8 +81,8 @@ void	parsing_file(t_cub *cub, char *file)
 	char	*line;
 
 	line = NULL;
-	get_map_size(file, cub);
+	get_map_size(cub, file);
 	fd = open_file(file);
-	line = parse_textures(fd, line, cub);
+	line = parse_textures(cub, line, fd);
 	parse_map(cub, line, fd);
 }

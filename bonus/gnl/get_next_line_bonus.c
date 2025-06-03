@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:43 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:27:52 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:37:17 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 char	*before_line(char *str)
 {

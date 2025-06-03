@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:47:40 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 22:34:16 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/03 18:18:55 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../include/cub3d_bonus.h"
 
 int	main(int ac, char **av)
 {
@@ -18,16 +18,14 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		check_file(av[1]);
+		check_extension(av[1]);
 		init_data(&cub);
 		parsing_file(&cub, av[1]);
-		cub.ray = malloc(SCREEN_WIDTH * sizeof(t_ray));
-		if (cub.ray == NULL)
-		{
-			perror("malloc");
-			return (1);
-		}
-		cub.mlx.mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", 0);
+		cub.ray = malloc(WINDOW_WIDTH * sizeof(t_ray));
+		if (!cub.ray)
+			failure_handling(&cub, NULL, -1);
+		cub.mlx.mlx_ptr = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D_bonus",
+				true);
 		mlx_loop_hook(cub.mlx.mlx_ptr, game_loop, &cub);
 		mlx_loop(cub.mlx.mlx_ptr);
 		cleanup_ressources(&cub);
@@ -35,7 +33,7 @@ int	main(int ac, char **av)
 	}
 	else
 	{
-		write(2, "Invalid Arguments!\n", ft_strlen("Invalid Arguments!\n"));
+		write(2, "Invalid Arguments!\n", 19);
 		return (1);
 	}
 	return (0);

@@ -6,26 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:36 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:00:29 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/03 14:39:26 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
-
-bool	check_wall(t_cub cub, int x, int y, float ray_angle)
-{
-	if (cub.map.map[y][x] == '1' || (cub.map.map[y][x] == '0' && cub.map.map[y
-			- 1][x] == '1' && cub.map.map[y][x - 1] == '1'
-			&& (int)ray_angle == 315) || (cub.map.map[y][x] == '0'
-			&& cub.map.map[y - 1][x] == '1' && cub.map.map[y][x + 1] == '1'
-			&& (int)ray_angle == 225) || (cub.map.map[y][x] == '0'
-			&& cub.map.map[y + 1][x] == '1' && cub.map.map[y][x + 1] == '1'
-			&& (int)ray_angle == 135) || (cub.map.map[y][x] == '0'
-			&& cub.map.map[y + 1][x] == '1' && cub.map.map[y][x - 1] == '1'
-			&& (int)ray_angle == 45))
-		return (true);
-	return (false);
-}
+#include "../../include/cub3d_bonus.h"
 
 t_ray	shortest_distance(t_ray horisontal, t_ray vertical, float ray_angle)
 {
@@ -72,7 +57,7 @@ void	cast_rays(t_cub *cub)
 
 	x = 0;
 	fov = FOV;
-	num_rays = SCREEN_WIDTH;
+	num_rays = WINDOW_WIDTH;
 	ray_angle_increment = fov / num_rays;
 	while (x < num_rays)
 	{

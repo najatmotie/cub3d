@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:38 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 13:50:39 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:30:16 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 t_ray	get_first_tile_ray_v(t_cub *cub, float ray_angle)
 {

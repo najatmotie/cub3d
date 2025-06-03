@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 11:52:48 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 22:15:26 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/03 14:31:53 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 void	dda(t_cub *cub, t_dda dda)
 {
@@ -30,12 +30,29 @@ void	dda(t_cub *cub, t_dda dda)
 	x_increment = dda.distance_x / (float)dda.pixels_steps;
 	y_increment = dda.distance_y / (float)dda.pixels_steps;
 	i = 0;
-	while (i++ <= dda.pixels_steps)
+	while (i < dda.pixels_steps)
 	{
 		my_mlx_put_pixel(cub->mlx.img_ptr, round(dda.start_x),
 			round(dda.start_y), 0xF5F5F5FF);
 		dda.start_x += x_increment;
 		dda.start_y += y_increment;
+		i++;
+	}
+}
+
+void	draw_rays(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		cub->dda.start_x = cub->ply.ply_x * TILE * MINIMAP;
+		cub->dda.start_y = cub->ply.ply_y * TILE * MINIMAP;
+		cub->dda.end_x = cub->ray[i].wall_hit_x * MINIMAP;
+		cub->dda.end_y = cub->ray[i].wall_hit_y * MINIMAP;
+		dda(cub, cub->dda);
+		i++;
 	}
 }
 
@@ -46,7 +63,6 @@ void	draw_player(t_cub *cub)
 	int	screen_x;
 	int	screen_y;
 
-	i = -4;
 	j = -4;
 	screen_x = cub->ply.ply_x * TILE * MINIMAP;
 	screen_y = cub->ply.ply_y * TILE * MINIMAP;
@@ -55,28 +71,12 @@ void	draw_player(t_cub *cub)
 		i = -4;
 		while (i < 4)
 		{
-			if (i * i + j * j <= 16)
-				mlx_put_pixel(cub->mlx.img_ptr, screen_x + j, screen_y + i,
+			if (i * i + j * j <= 4 * 4)
+				my_mlx_put_pixel(cub->mlx.img_ptr, screen_x + j, screen_y + i,
 					0xF5F5F5FF);
 			i++;
 		}
 		j++;
-	}
-}
-
-void	draw_rays(t_cub *cub)
-{
-	int	i;
-
-	i = 0;
-	while (i < SCREEN_WIDTH)
-	{
-		cub->dda.start_x = cub->ply.ply_x * (TILE * MINIMAP);
-		cub->dda.start_y = cub->ply.ply_y * (TILE * MINIMAP);
-		cub->dda.end_x = cub->ray[i].wall_hit_x * MINIMAP;
-		cub->dda.end_y = cub->ray[i].wall_hit_y * MINIMAP;
-		dda(cub, cub->dda);
-		i++;
 	}
 }
 
@@ -110,10 +110,10 @@ void	draw_minimap(t_cub *cub)
 
 	x = 0;
 	y = 0;
-	while (y < cub->map.height && y < SCREEN_HEIGHT / (TILE * MINIMAP))
+	while (y < cub->map.height && y < WINDOW_HEIGHT / (TILE * MINIMAP))
 	{
 		x = 0;
-		while (x < cub->map.width && SCREEN_WIDTH / (TILE * MINIMAP))
+		while (x < cub->map.width && WINDOW_WIDTH / (TILE * MINIMAP))
 		{
 			if (cub->map.map[y][x] == '1')
 				color = 0xB5B5B5FF;

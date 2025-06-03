@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:28 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 14:25:54 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:30:50 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {

@@ -6,11 +6,18 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:17 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 12:59:33 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/01 17:36:17 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
+
+void	my_mlx_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y,
+		uint32_t color)
+{
+	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+		mlx_put_pixel(image, x, y, color);
+}
 
 mlx_texture_t	*choose_texture(t_cub cub, int x)
 {
@@ -57,12 +64,12 @@ int	draw_textured_wall_column(t_cub *cub, int wall_height, int wall_top, int x)
 		wall_pos = fmod(cub->ray[x].wall_hit_y, TILE);
 	tex_x = (wall_pos * choose_texture(*cub, x)->width) / TILE;
 	y = wall_top;
-	wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
-	if (wall_bottom > SCREEN_HEIGHT)
-		wall_bottom = SCREEN_HEIGHT;
+	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
+	if (wall_bottom > WINDOW_HEIGHT)
+		wall_bottom = WINDOW_HEIGHT;
 	while (y < wall_bottom)
 	{
-		wall_pos = (float)(y - ((SCREEN_HEIGHT / 2) - (wall_height / 2)));
+		wall_pos = (float)(y - ((WINDOW_HEIGHT / 2) - (wall_height / 2)));
 		tex_y = (int)((wall_pos * choose_texture(*cub, x)->height)
 				/ wall_height);
 		my_mlx_put_pixel(cub->mlx.img_ptr, x, y,
@@ -85,16 +92,14 @@ void	draw_3d(t_cub *cub, int x)
 		* cos(degree_to_radian(normalize_angle(cub->ray[x].ray_angle
 					- cub->ply.ply_angle)));
 	distance = fisheye_handled;
-	if (distance < 0.0001f)
-		distance = 0.0001f;
-	wall_height = (TILE * SCREEN_HEIGHT) / distance;
-	wall_top = ((SCREEN_HEIGHT / 2) - (wall_height / 2));
+	wall_height = (TILE * WINDOW_HEIGHT) / distance;
+	wall_top = ((WINDOW_HEIGHT / 2) - (wall_height / 2));
 	if (wall_top < 0)
 		wall_top = 0;
-	y = 0;
-	while (y++ < wall_top)
+	y = -1;
+	while (++y < wall_top)
 		my_mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.ceiling_color);
-	y = draw_textured_wall_column(cub, wall_height, wall_top, x);
-	while (y++ < SCREEN_HEIGHT)
+	y = draw_textured_wall_column(cub, wall_height, wall_top, x) - 1;
+	while (++y < WINDOW_HEIGHT)
 		my_mlx_put_pixel(cub->mlx.img_ptr, x, y, cub->textures.floor_color);
 }

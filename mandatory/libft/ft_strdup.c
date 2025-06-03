@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:30 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/24 14:26:00 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 21:11:32 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 char	*ft_strdup(const char *s1)
 {
@@ -22,7 +22,10 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1) + 1;
 	dst = (char *)malloc(len);
 	if (dst == NULL)
+	{
+		perror("malloc");
 		return (NULL);
+	}
 	while (s1[i] != '\0')
 	{
 		dst[i] = s1[i];

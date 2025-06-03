@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 17:27:54 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/28 11:27:10 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 18:36:00 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d_bonus.h"
+#include "../../../include/cub3d_bonus.h"
 
 bool	north_image(t_cub *cub, char *path)
 {
@@ -20,7 +20,8 @@ bool	north_image(t_cub *cub, char *path)
 	cub->textures.north_texture = mlx_load_png(path);
 	if (!cub->textures.north_texture)
 	{
-		printf("%s\n", mlx_strerror(mlx_errno));
+		write(2, mlx_strerror(mlx_errno), ft_strlen(mlx_strerror(mlx_errno)));
+		write(2, "\n", 1);
 		return (false);
 	}
 	return (true);
@@ -34,7 +35,8 @@ bool	south_image(t_cub *cub, char *path)
 	cub->textures.south_texture = mlx_load_png(path);
 	if (!cub->textures.south_texture)
 	{
-		printf("%s\n", mlx_strerror(mlx_errno));
+		write(2, mlx_strerror(mlx_errno), ft_strlen(mlx_strerror(mlx_errno)));
+		write(2, "\n", 1);
 		return (false);
 	}
 	return (true);
@@ -48,7 +50,8 @@ bool	west_image(t_cub *cub, char *path)
 	cub->textures.west_texture = mlx_load_png(path);
 	if (!cub->textures.west_texture)
 	{
-		printf("%s\n", mlx_strerror(mlx_errno));
+		write(2, mlx_strerror(mlx_errno), ft_strlen(mlx_strerror(mlx_errno)));
+		write(2, "\n", 1);
 		return (false);
 	}
 	return (true);
@@ -62,13 +65,14 @@ bool	east_image(t_cub *cub, char *path)
 	cub->textures.east_texture = mlx_load_png(path);
 	if (!cub->textures.east_texture)
 	{
-		printf("%s\n", mlx_strerror(mlx_errno));
+		write(2, mlx_strerror(mlx_errno), ft_strlen(mlx_strerror(mlx_errno)));
+		write(2, "\n", 1);
 		return (false);
 	}
 	return (true);
 }
 
-bool	parse_paths(char **s, t_cub *cub)
+bool	parse_paths(t_cub *cub, char **s)
 {
 	if (s[0] && s[1] && !s[2] && ft_strcmp(s[0], "NO") == 0)
 	{

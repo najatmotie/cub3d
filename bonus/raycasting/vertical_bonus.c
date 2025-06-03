@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:50:38 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/26 13:00:37 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/06/03 14:40:07 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
+#include "../../include/cub3d_bonus.h"
 
 t_ray	get_first_tile_ray_v(t_cub *cub, float ray_angle)
 {
@@ -56,7 +56,7 @@ t_ray	complete_ray_until_hit_wall_v(t_cub *cub, t_ray ray, float ray_angle)
 		map_y = (int)ray.wall_hit_y / TILE;
 		if (ray_angle > 90 && ray_angle < 270)
 			map_x = (int)(ray.wall_hit_x - 1) / TILE;
-		if (check_wall(*cub, map_x, map_y, ray_angle))
+		if (cub->map.map[map_y][map_x] == '1')
 			break ;
 		if (ray_angle >= 90 && ray_angle <= 270)
 			ray.wall_hit_x -= adjacent;

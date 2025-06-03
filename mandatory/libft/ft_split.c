@@ -6,11 +6,11 @@
 /*   By: nmotie- <nmotie-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:51:24 by nmotie-           #+#    #+#             */
-/*   Updated: 2025/05/25 14:20:19 by nmotie-          ###   ########.fr       */
+/*   Updated: 2025/05/29 17:39:20 by nmotie-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../include/cub3d.h"
 
 void	*free_memory(char **result, int j)
 {
