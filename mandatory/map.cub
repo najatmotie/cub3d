@@ -1,7 +1,7 @@
 NO mandatory/textures/north.png
-SO mandatory/textures/north.png
-WE mandatory/textures/north.png
-EA mandatory/textures/north.png
+SO mandatory/textures/south.png
+WE mandatory/textures/west.png
+EA mandatory/textures/east.png
 
 C 150,142,132
 F 140,140,130
